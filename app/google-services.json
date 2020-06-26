@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1035054646752",
+    "firebase_url": "https://utenzi-services-nangosia.firebaseio.com",
+    "project_id": "utenzi-services-nangosia",
+    "storage_bucket": "utenzi-services-nangosia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035054646752:android:a5a8e919eca16d1c369785",
+        "android_client_info": {
+          "package_name": "com.example.mynangosia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035054646752-rb5t5at4vuunfjt1fn4fiaf75u1ccim6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mynangosia",
+            "certificate_hash": "4f05d1347e8ccada73e522a4a102d9e6e3cc63ee"
+          }
+        },
+        {
+          "client_id": "1035054646752-g6r7aq7q27gpr44cdfog4tmasb4vf7km.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDakKeBwAyhZnoTq4BXIwTBq969239Ah50"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035054646752-g6r7aq7q27gpr44cdfog4tmasb4vf7km.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

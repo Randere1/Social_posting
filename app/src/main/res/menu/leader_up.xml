@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/block_menu"
+        android:title="Search"
+        app:showAsAction="never">
+    </item>
+
+    <item android:id="@+id/rooms_menu"
+        android:title="Rooms"
+        app:showAsAction="never">
+    </item>
+
+    <item android:id="@+id/admins_menu"
+        android:title="Admin"
+        app:showAsAction="never">
+    </item>
+
+    <item android:id="@+id/acc_menu"
+        android:title="Profile"
+        app:showAsAction="never">
+    </item>
+    <item android:id="@+id/log_menu"
+        android:title="Log Out"
+        app:showAsAction="never">
+    </item>
+
+</menu>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item android:id="@+id/block_menu"
+        android:title="Search"
+        app:showAsAction="never">
+    </item>
+
+    <item android:id="@+id/drink_menu"
+        android:title="Alcohol Orders"
+        app:showAsAction="never">
+    </item>
+
+    <item android:id="@+id/Room_menu"
+        android:title="Room  Orders"
+        app:showAsAction="never">
+    </item>
+
+    <item android:id="@+id/Rooms_menu"
+        android:title="Rooms"
+        app:showAsAction="never">
+    </item>
+    <item android:id="@+id/brand_menu"
+        android:title="Add Brand"
+        app:showAsAction="never">
+    </item>
+
+    <item android:id="@+id/room_menu"
+        android:title="Add Room"
+        app:showAsAction="never">
+    </item>
+    <item android:id="@+id/log_menu"
+        android:title="Log Out"
+        app:showAsAction="never">
+    </item>
+
+
+</menu>
