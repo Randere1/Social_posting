@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_drawer"
-    android:background="#fff0f5"
+    android:background ="#e6e6fa"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -14,12 +14,40 @@
         android:layout_height="match_parent">
 
 
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_page_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:fitsSystemWindows="true"
-        android:background="#f5d9d5"/>
+        android:background="#f5d9d5">
+
+
+
+
+        <TextView
+            android:id="@+id/item_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 0"
+            android:layout_marginBottom="40dp"
+            android:layout_marginLeft="220dp"
+            android:textColor="@android:color/black"
+            ></TextView>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="-5dp"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/cart"
+            app:civ_border_width="2dp" />
+
+
+    </androidx.appcompat.widget.Toolbar>
 
     </RelativeLayout>
 

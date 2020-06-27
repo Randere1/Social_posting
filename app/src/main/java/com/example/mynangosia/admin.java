@@ -3,6 +3,7 @@ package com.example.mynangosia;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +27,7 @@ public class admin extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
     private RecyclerView picpostRecycler;
-   AlcoholAd discpostAd;
+    AlcoholAd discpostAd;
     ArrayList<alcoholGs> discposts;
 
     @Override
@@ -40,10 +41,18 @@ public class admin extends AppCompatActivity {
 
         picpostRecycler = findViewById(R.id.Posts);
         picpostRecycler.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-        picpostRecycler.setLayoutManager(linearLayoutManager);
+
+        /** Added this Code Line */
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+
+        /** Removed this */
+
+//          LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//          linearLayoutManager.setReverseLayout(true);
+//          linearLayoutManager.setStackFromEnd(true);
+
+
+        picpostRecycler.setLayoutManager(gridLayoutManager);
 
 
         mToolbar = findViewById(R.id.msg_bar);
@@ -62,7 +71,7 @@ public class admin extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 discposts = new ArrayList<>();
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                   alcoholGs pp = eventSnapshot.getValue(alcoholGs.class);
+                    alcoholGs pp = eventSnapshot.getValue(alcoholGs.class);
 
                     discposts.add(pp);
                 }

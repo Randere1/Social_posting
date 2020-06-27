@@ -1,9 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".alcoholClick">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:id="@+id/biz_post_bar"
+        android:background="#f5d9d5">
+
+    <TextView
+        android:id="@+id/item_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 0"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="220dp"
+        android:textColor="@android:color/black"
+        ></TextView>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cart"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/cart"
+        app:civ_border_width="2dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+    <FrameLayout
+
+        android:id="@+id/biz_i"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:fitsSystemWindows="true"
+        android:background="@drawable/frame_border">
+
+        <ScrollView
+            android:id="@+id/biz_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/biz_post_bar"
+            android:fitsSystemWindows="true">
+
+            <LinearLayout
+                android:layout_marginTop="1dp"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/biz_something"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="50dp"
+                    android:ems="10"
+                    android:hint="product name"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp" />
+
+
+
+
+
+                <ImageButton
+                    android:id="@+id/biz_imagei"
+                    android:layout_width="280dp"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="5dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/upload" />
+
+                <TextView
+                    android:id="@+id/biz_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="50dp"
+                    android:ems="10"
+                    android:hint="price"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp" />
+
+                <TextView
+                    android:id="@+id/biz_moredisc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="50dp"
+                    android:ems="10"
+                    android:hint="more information"
+                    android:inputType="textMultiLine"
+                    android:padding="20dp" />
+
+                <Button
+                    android:id="@+id/biz_Post_button"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/btn"
+                    android:text="Add To Cart" />
+
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+
+
+</RelativeLayout>

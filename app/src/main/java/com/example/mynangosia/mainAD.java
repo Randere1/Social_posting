@@ -63,16 +63,6 @@ public class mainAD extends RecyclerView.Adapter<mainAD.MyViewHolder> implements
 
 
 
-
-        if (post.getDescription() != null) {
-            holder.description.setVisibility(View.VISIBLE);
-
-        }  else
-        {
-            holder.description.setVisibility(View.GONE);
-        }
-
-
     }
 
     @Override
