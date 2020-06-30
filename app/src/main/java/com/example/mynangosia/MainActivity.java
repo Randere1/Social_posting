@@ -8,8 +8,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,10 +35,10 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity  implements  NavigationView.OnNavigationItemSelectedListener , tab1.OnFragmentInteractionListener,tab2.OnFragmentInteractionListener,tab3.OnFragmentInteractionListener {
     private Toolbar mToolbar;
     private DrawerLayout drawerLayout;
-    private RecyclerView picpostRecycler;
+
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference users, Alcohols;
     String currentUserId;
@@ -42,15 +46,14 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     private ActionBarDrawerToggle mToggle;
     private CircleImageView navprofileimage;
     private TextView navprofilename, navid;
-    mainAD discpostAd;
-    ArrayList<alcoholGs> discposts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Alcoholdisplay();
+
 
         mToolbar = findViewById(R.id.main_page_bar);
         drawerLayout = findViewById(R.id.main_drawer);
@@ -75,42 +78,44 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setBackgroundColor(getResources().getColor(R.color.colorNavigation));
 
-        picpostRecycler = findViewById(R.id.Posts);
-        picpostRecycler.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        picpostRecycler.setLayoutManager(gridLayoutManager);
+
 
 
 
         navprofilename = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user);
         navid = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_id);
-    }
 
-    private void Alcoholdisplay() {
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tablayout);
 
-        discposts = new ArrayList<>();
-        DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("Alcohols");
-        refrence.addValueEventListener(new ValueEventListener() {
+        tabLayout.addTab(tabLayout.newTab().setText("ALCOHOLS"));
+        tabLayout.addTab(tabLayout.newTab().setText("ROOMS"));
+        tabLayout.addTab(tabLayout.newTab().setText("OTHER PRODUCTS"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
+        final PagerAdapter adapter = new PageAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                discposts = new ArrayList<>();
-                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                    alcoholGs pp = eventSnapshot.getValue(alcoholGs.class);
-
-                    discposts.add(pp);
-                }
-                discpostAd = new mainAD(MainActivity.this ,discposts);
-                picpostRecycler.setAdapter(discpostAd);
-                discpostAd.notifyDataSetChanged();
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
-
     }
+
+
 
     @Override
     protected void onStart() {
@@ -176,11 +181,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
                 mAuth.signOut();
                 DirectUserToLoginActivity();
                 break;
-            case R.id.nav_Rooms:
-                Intent a = new Intent(MainActivity.this, room.class);
-                startActivity(a);
 
-                break;
             case R.id.nav_Admin:
 
                 users.addValueEventListener(new ValueEventListener() {
@@ -230,6 +231,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }

@@ -27,8 +27,7 @@ public class room extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
     private RecyclerView picpostRecycler;
-    roomAD discpostAd;
-    ArrayList<roomsGS> discposts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +35,9 @@ public class room extends AppCompatActivity {
         setContentView(R.layout.activity_room);
         mAuth = FirebaseAuth.getInstance();
 
-        ShowAlcohols();
 
-        picpostRecycler = findViewById(R.id.Posts);
-        picpostRecycler.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        picpostRecycler.setLayoutManager(gridLayoutManager);
+
+
 
 
         mToolbar = findViewById(R.id.msg_bar);
@@ -49,32 +45,6 @@ public class room extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-    }
-
-    private void ShowAlcohols() {
-
-        discposts = new ArrayList<>();
-        DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("Rooms");
-        refrence.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                discposts = new ArrayList<>();
-                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                    roomsGS pp = eventSnapshot.getValue(roomsGS.class);
-
-                    discposts.add(pp);
-                }
-                discpostAd = new roomAD(room.this ,discposts);
-                picpostRecycler.setAdapter(discpostAd);
-                discpostAd.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
 
