@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -213,7 +214,8 @@ public class roomPost extends AppCompatActivity {
     }
 
     private void SendUserToMain() {
-        Intent e=new Intent(roomPost.this,rooms.class);
+        Intent e=new Intent(roomPost.this,admin.class);
         startActivity(e);
+
     }
 }

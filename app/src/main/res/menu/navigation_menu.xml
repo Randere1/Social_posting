@@ -4,9 +4,6 @@
 
 
 
-    <item
-        android:id="@+id/nav_Rooms"
-        android:title="Room" />
 
 
     <item

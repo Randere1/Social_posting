@@ -230,7 +230,7 @@ public class post extends AppCompatActivity {
     }
 
     private void SendUserToMain() {
-        Intent e=new Intent(post.this,login.class);
+        Intent e=new Intent(post.this,admin.class);
         startActivity(e);
     }
 

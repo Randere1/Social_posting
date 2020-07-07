@@ -105,6 +105,67 @@
                     android:inputType="textMultiLine"
                     android:padding="20dp" />
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/bi"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="5dp"
+                        android:ems="10"
+                        android:hint=" Quantity"
+                        android:inputType="textMultiLine"
+                        android:padding="20dp" />
+
+                    <EditText
+                        android:id="@+id/quantity"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dp"
+                        android:layout_marginTop="10dp"
+                        android:textAlignment="textStart"
+                        android:textSize="20dp"
+                        android:ems="10"
+                        android:text="1"
+                        android:inputType="number"
+                        android:padding="20dp" />
+
+                    <Button
+                        android:id="@+id/add"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/post_btn"
+                        android:ems="10"
+                        android:hint="+"
+                        android:inputType="textMultiLine"
+                        android:padding="20dp"
+                        android:textAlignment="textStart"
+                        android:textSize="20dp" />
+
+                    <Button
+                        android:id="@+id/subtract"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/post_btn"
+                        android:ems="10"
+                        android:hint="-"
+                        android:inputType="textMultiLine"
+                        android:padding="20dp"
+                        android:textAlignment="center"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
                 <Button
                     android:id="@+id/biz_Post_button"
                     android:layout_width="150dp"

@@ -22,15 +22,9 @@
         android:title="Rooms"
         app:showAsAction="never">
     </item>
-    <item android:id="@+id/brand_menu"
-        android:title="Add Brand"
-        app:showAsAction="never">
-    </item>
 
-    <item android:id="@+id/room_menu"
-        android:title="Add Room"
-        app:showAsAction="never">
-    </item>
+
+
     <item android:id="@+id/log_menu"
         android:title="Log Out"
         app:showAsAction="never">

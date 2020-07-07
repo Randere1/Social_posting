@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +41,14 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     private DrawerLayout drawerLayout;
 
     private FirebaseAuth mAuth, eAuth;
-    private DatabaseReference users, Alcohols;
+    private DatabaseReference users, cart,Alcohols;
     String currentUserId;
     private NavigationView navigationView;
     private ActionBarDrawerToggle mToggle;
-    private CircleImageView navprofileimage;
-    private TextView navprofilename, navid;
+    private CircleImageView carti;
+    private TextView navprofilename, navid,count;
+
+    int y;
 
 
     @Override
@@ -64,6 +67,10 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
         users = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
         Alcohols = FirebaseDatabase.getInstance().getReference().child("Alcohols");
+        cart = FirebaseDatabase.getInstance().getReference();
+
+        count = findViewById(R.id.item_count);
+        carti = findViewById(R.id.cart);
 
 
         setSupportActionBar(mToolbar);
@@ -78,12 +85,41 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setBackgroundColor(getResources().getColor(R.color.colorNavigation));
 
+        carti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent uv = new Intent(MainActivity.this, myCart.class);
+                startActivity(uv);
+            }
+        });
+
 
 
 
 
         navprofilename = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user);
-        navid = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_id);
+        navid = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_phone);
+
+
+        users.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               if (dataSnapshot.exists()){
+          String b = dataSnapshot.child("FullName").getValue().toString();
+                   String c = dataSnapshot.child("username").getValue().toString();
+
+                   navprofilename.setText(b);
+                   navid.setText(c);
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         TabLayout tabLayout = (TabLayout)findViewById(R.id.tablayout);
 
@@ -113,7 +149,44 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
             }
         });
+
+        users.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+            String  a = dataSnapshot.child("FullName").getValue().toString();
+            assert  a != null;
+                    cart.child("Carts").child(a).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.exists()) {
+                                y = (int) dataSnapshot.getChildrenCount();
+                                count.setText(Integer.toString(y));
+                            } else {
+                                count.setVisibility(View.GONE);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
+
+
+
 
 
 

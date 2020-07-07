@@ -2,17 +2,24 @@ package com.example.mynangosia;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,11 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class admin extends AppCompatActivity {
+public class admin extends AppCompatActivity implements f1.OnFragmentInteractionListener,f2.OnFragmentInteractionListener,f3.OnFragmentInteractionListener  {
 
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
     private RecyclerView picpostRecycler;
+    private Button d,e,f;
+    SearchView a,b,c;
     AlcoholAd discpostAd;
     ArrayList<alcoholGs> discposts;
 
@@ -37,56 +46,103 @@ public class admin extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        ShowAlcohols();
-
-        picpostRecycler = findViewById(R.id.Posts);
-        picpostRecycler.setHasFixedSize(true);
-
-        /** Added this Code Line */
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-
-        /** Removed this */
-
-//          LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//          linearLayoutManager.setReverseLayout(true);
-//          linearLayoutManager.setStackFromEnd(true);
 
 
-        picpostRecycler.setLayoutManager(gridLayoutManager);
-
+            a =findViewById(R.id.search);
+            b =findViewById(R.id.search1);
+            c =findViewById(R.id.search2);
+            d = findViewById(R.id.main_post);
+            e = findViewById(R.id.main_post1);
+            f = findViewById(R.id.main_post2);
 
         mToolbar = findViewById(R.id.msg_bar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-    }
 
-    private void ShowAlcohols() {
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tablayout);
 
-        discposts = new ArrayList<>();
-        DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("Alcohols");
-        refrence.addValueEventListener(new ValueEventListener() {
+        tabLayout.addTab(tabLayout.newTab().setText("ALCOHOLS"));
+        tabLayout.addTab(tabLayout.newTab().setText("ROOMS"));
+        tabLayout.addTab(tabLayout.newTab().setText("OTHER PRODUCTS"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
+        final PagerAdapter adapter = new fAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                discposts = new ArrayList<>();
-                for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                    alcoholGs pp = eventSnapshot.getValue(alcoholGs.class);
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
 
-                    discposts.add(pp);
-                }
-                discpostAd = new AlcoholAd(admin.this ,discposts);
-                picpostRecycler.setAdapter(discpostAd);
-                discpostAd.notifyDataSetChanged();
+
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+        if (position == 0){
+            d.setVisibility(View.VISIBLE);
+            a.setVisibility(View.VISIBLE);
+
+        }if (position == 1){
+            e.setVisibility(View.VISIBLE);
+            b.setVisibility(View.VISIBLE);
+            d.setVisibility(View.GONE);
+            a.setVisibility(View.GONE);
+                }else if (position == 2){
+            f.setVisibility(View.VISIBLE);
+            c.setVisibility(View.VISIBLE);
+            e.setVisibility(View.GONE);
+            a.setVisibility(View.GONE);
+            b.setVisibility(View.GONE);
+            d.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
 
+        d.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent u = new Intent(admin.this, post.class);
+                startActivity(u);
+
+            }
+        });
+
+        e.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent h = new Intent(admin.this, roomPost.class);
+                startActivity(h);
+            }
+        });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -99,6 +155,10 @@ public class admin extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
+
+        if(id == android.R.id.home ){
+            SendUserToMain();
+        }
 
         switch (item.getItemId()) {
 
@@ -117,12 +177,7 @@ public class admin extends AppCompatActivity {
 
                 break;
 
-            case  R.id.brand_menu:
 
-                Intent u = new Intent(admin.this, post.class);
-                startActivity(u);
-
-                break;
             case  R.id.drink_menu:
 
                 Intent c = new Intent(admin.this, drinkorder.class);
@@ -130,12 +185,7 @@ public class admin extends AppCompatActivity {
 
                 break;
 
-            case  R.id.room_menu:
 
-                Intent h = new Intent(admin.this, roomPost.class);
-                startActivity(h);
-
-                break;
 
             case  R.id.Rooms_menu:
 
@@ -157,4 +207,22 @@ public class admin extends AppCompatActivity {
 
 
     }
+
+    private void SendUserToMain() {
+
+        Intent e=new Intent(admin.this,MainActivity.class);
+        startActivity(e);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+
 }

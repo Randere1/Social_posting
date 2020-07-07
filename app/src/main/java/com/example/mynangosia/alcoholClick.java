@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,16 +16,36 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class alcoholClick extends AppCompatActivity {
 
-    TextView a,b,c;
+    TextView a,b,c,count;
     Button d;
     private Toolbar mtoolbar;
     String id ,f,g ,i;
     ImageButton j;
+    EditText quantity;
+    Button add,subtract;
+    int num1 = 1 ,num2= 1 ,sum;
+    private FirebaseAuth mAuth, eAuth;
+    private DatabaseReference users, Alcohols,cart;
+    String currentUserId;
+    int y;
+CircleImageView carti;
+
 
 
     @Override
@@ -37,6 +58,19 @@ public class alcoholClick extends AppCompatActivity {
         c = findViewById( R.id.biz_moredisc);
         d = findViewById( R.id.biz_Post_button);
         j = findViewById(R.id.biz_imagei);
+        carti = findViewById(R.id.cart);
+        count = findViewById(R.id.item_count);
+        quantity = findViewById(R.id.quantity);
+        add = findViewById(R.id.add);
+        subtract = findViewById(R.id.subtract);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
+
+        users = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
+        cart = FirebaseDatabase.getInstance().getReference();
+
+
 
         mtoolbar=findViewById(R.id.biz_post_bar);
         setSupportActionBar(mtoolbar);
@@ -52,10 +86,108 @@ public class alcoholClick extends AppCompatActivity {
         Picasso.get().load(discpost.getPic()).into(j);
 
 
+        users.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    String  a = dataSnapshot.child("FullName").getValue().toString();
+                    assert  a != null;
+                    cart.child("Carts").child(a).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            if (dataSnapshot.exists()) {
+                                y = (int) dataSnapshot.getChildrenCount();
+                                count.setText(Integer.toString(y));
+                            } else {
+                                count.setVisibility(View.GONE);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
         d.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(alcoholClick.this, "not yet coded", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(alcoholClick.this, "not yet coded", Toast.LENGTH_SHORT).show();
+                users.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()){
+                            String b = dataSnapshot.child("FullName").getValue().toString();
+                            String c = dataSnapshot.child("username").getValue().toString();
+
+                            String y = quantity.getText().toString();
+
+                            HashMap picpostmap = new HashMap();
+
+
+                            picpostmap.put("productName", discpost.getProductName());
+                            picpostmap.put("pk", discpost.getPk());
+                            picpostmap.put("Value", discpost.getValue());
+                            picpostmap.put("Pic",discpost.getPic() );
+                            picpostmap.put("quantity",y );
+                            picpostmap.put("description",discpost.getDescription());
+                            cart.child("Carts").child(b).child(discpost.getPk()).updateChildren(picpostmap).addOnCompleteListener(new OnCompleteListener() {
+                                @Override
+                                public void onComplete(@NonNull Task task) {
+                                    if (task.isSuccessful()){
+
+                                        SendUserToMain();
+                                    }
+                                }
+                            });
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String value = quantity.getText().toString();
+                int finalValue = Integer.parseInt(value);
+                sum = finalValue + 1;
+
+                int a = sum;
+                String  str = Integer.toString(a);
+
+               quantity.setText(str);
+
+            }
+        });
+        subtract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String value = quantity.getText().toString();
+                int finalValue = Integer.parseInt(value);
+                sum = finalValue - num2;
+
+                int a = sum;
+                String str = Integer.toString(a);
+                quantity.setText(str);
             }
         });
 

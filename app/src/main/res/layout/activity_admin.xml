@@ -12,18 +12,122 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:fitsSystemWindows="true"
-        android:background="#f5d9d5"/>
+        android:background="#f5d9d5">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Posts"
+        <androidx.appcompat.widget.SearchView
+            android:layout_marginTop="5dp"
+            android:id="@+id/search"
+            android:background="#FFFFFF"
+            android:layout_width="260dp"
+            android:padding="10dp"
+            android:layout_marginLeft="-30dp"
+            android:visibility="visible"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            app:queryHint="Search Alcohol here"
+
+
+            ></androidx.appcompat.widget.SearchView>
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_marginTop="5dp"
+            android:id="@+id/search1"
+            android:background="#FFFFFF"
+            android:layout_width="280dp"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            app:queryHint="Search Room here"
+
+
+            ></androidx.appcompat.widget.SearchView>
+
+        <androidx.appcompat.widget.SearchView
+            android:layout_marginTop="5dp"
+            android:id="@+id/search2"
+            android:background="#FFFFFF"
+            android:layout_width="280dp"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:layout_marginStart="60dp"
+            android:layout_marginBottom="15dp"
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            app:queryHint="Search Product here"
+
+
+            ></androidx.appcompat.widget.SearchView>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="60dp"
+        android:id="@+id/tablayout"
+        android:background="#3aa8c1"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_marginTop="100dp"
+        android:layout_height="fill_parent"
+        android:id="@+id/pager">
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="75dp"
-        android:layout_height="match_parent"
+        android:layout_marginBottom="5dp"
+        >
+        <Button
+            android:id="@+id/main_post"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="3dp"
+            android:textSize="30dp"
+            android:background="@drawable/post_btn"
+            android:text="+"></Button>
+        <Button
+            android:id="@+id/main_post1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="3dp"
+            android:textSize="30dp"
+            android:background="@drawable/post_btn"
+            android:text="+"></Button>
+        <Button
+            android:id="@+id/main_post2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:visibility="gone"
+            android:layout_marginBottom="3dp"
+            android:textSize="30dp"
+            android:background="@drawable/post_btn"
+            android:text="+"></Button>
+
+    </RelativeLayout>
 
 
-
-        />
 
 
 </RelativeLayout>

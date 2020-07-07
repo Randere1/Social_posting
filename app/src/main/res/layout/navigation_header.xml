@@ -7,37 +7,49 @@
     android:layout_height="match_parent"
     android:background="#e6e6fa">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/nav_dp"
+        android:layout_width="145dp"
+        android:layout_height="145dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/nav"
+        app:civ_border_width="2dp" />
+
     <TextView
         android:id="@+id/nav_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="80dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="190dp"
         android:layout_marginRight="80dp"
-        android:background="@drawable/inputs"
         android:textSize="14sp"
         android:ems="10"
         android:padding="5dp"
-        android:text="user name"
+        android:text="Phone Number"
         android:textAlignment="center" />
     <TextView
-        android:id="@+id/nav_id"
-        android:layout_width="wrap_content"
+        android:id="@+id/nav_phone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/inputs"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="80dp"
         android:textSize="14sp"
+
+
+
         android:ems="10"
-        android:padding="10dp"
-        android:text="10"
-        android:visibility="gone"
+        android:padding="5dp"
+        android:text="Full Name"
         android:textAlignment="center" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="10dp"
         android:layout_height="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         android:layout_marginLeft="350dp"
         android:scaleType="fitXY"
         tools:srcCompat="@tools:sample/avatars" />
