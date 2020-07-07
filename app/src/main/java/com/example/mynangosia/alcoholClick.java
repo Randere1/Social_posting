@@ -36,9 +36,8 @@ public class alcoholClick extends AppCompatActivity {
     Button d;
     private Toolbar mtoolbar;
     String id ,f,g ,i;
-    ImageButton j;
+    ImageButton j,add,subtract;
     EditText quantity;
-    Button add,subtract;
     int num1 = 1 ,num2= 1 ,sum;
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference users, Alcohols,cart;
@@ -128,9 +127,19 @@ CircleImageView carti;
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()){
                             String b = dataSnapshot.child("FullName").getValue().toString();
-                            String c = dataSnapshot.child("username").getValue().toString();
+
 
                             String y = quantity.getText().toString();
+                            int v = Integer.parseInt(y);
+
+                            String o = discpost.getValue().toString();
+                            int r = Integer.parseInt(o);
+
+                            int c = v * r ;
+
+                            Toast.makeText(alcoholClick.this, "sum"+c, Toast.LENGTH_SHORT).show();
+
+                            String z = Integer.toString(c);
 
                             HashMap picpostmap = new HashMap();
 
@@ -140,6 +149,7 @@ CircleImageView carti;
                             picpostmap.put("Value", discpost.getValue());
                             picpostmap.put("Pic",discpost.getPic() );
                             picpostmap.put("quantity",y );
+                            picpostmap.put("total",z );
                             picpostmap.put("description",discpost.getDescription());
                             cart.child("Carts").child(b).child(discpost.getPk()).updateChildren(picpostmap).addOnCompleteListener(new OnCompleteListener() {
                                 @Override
