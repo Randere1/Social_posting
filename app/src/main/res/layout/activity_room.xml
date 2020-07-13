@@ -18,11 +18,8 @@
         android:id="@+id/Posts"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="75dp"
-        android:layout_height="match_parent"
-
-
-
-        />
+        android:layout_below="@id/msg_bar"
+        android:padding="5dp"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
