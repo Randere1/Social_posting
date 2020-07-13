@@ -174,7 +174,7 @@ public class alcoholClick extends AppCompatActivity {
             public void onClick(View v) {
                 String value = quantity.getText().toString();
                 int finalValue = Integer.parseInt(value);
-                finalValue ++;
+                finalValue++;
                 String str = Integer.toString(finalValue);
                 quantity.setText(str);
 
@@ -188,7 +188,7 @@ public class alcoholClick extends AppCompatActivity {
                 if (finalValue == 1) {
                     Toast.makeText(alcoholClick.this, "Quantity can't be less than 1", Toast.LENGTH_SHORT).show();
                 } else {
-                    finalValue --;
+                    finalValue--;
                     String str = Integer.toString(finalValue);
                     quantity.setText(str);
                 }

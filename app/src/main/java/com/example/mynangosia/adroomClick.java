@@ -23,23 +23,23 @@ import java.util.HashMap;
 
 public class adroomClick extends AppCompatActivity {
 
-    EditText a,b;
-    Button c,d;
+    EditText a, b;
+    Button c, d;
     private DatabaseReference Roomreff;
     private Toolbar mtoolbar;
-    String id ,f,g;
+    String id, f, g;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adroom_click);
 
-        a = findViewById( R.id.biz_something);
-        b = findViewById( R.id.biz_price);
-        c = findViewById( R.id.biz_Post_button);
-        d = findViewById( R.id.biz_Post_delete);
+        a = findViewById(R.id.biz_something);
+        b = findViewById(R.id.biz_price);
+        c = findViewById(R.id.biz_Post_button);
+        d = findViewById(R.id.biz_Post_delete);
 
-        mtoolbar=findViewById(R.id.biz_post_bar);
+        mtoolbar = findViewById(R.id.biz_post_bar);
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -55,13 +55,13 @@ public class adroomClick extends AppCompatActivity {
         d.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assert  discpost.getPk() != null;
+                assert discpost.getPk() != null;
                 Roomreff.child(discpost.getPk()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Toast.makeText(adroomClick.this, "Deleted record succesfuly", Toast.LENGTH_SHORT).show();
-                            Intent e=new Intent(adroomClick.this,rooms.class);
+                            Intent e = new Intent(adroomClick.this, rooms.class);
                             startActivity(e);
                         }
                     }
@@ -72,15 +72,15 @@ public class adroomClick extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                f  =  a.getText().toString();
-                g  =    b.getText().toString();
+                f = a.getText().toString();
+                g = b.getText().toString();
 
-                if (TextUtils.isEmpty( f)) {
+                if (TextUtils.isEmpty(f)) {
                     Toast.makeText(adroomClick.this, "please write products name", Toast.LENGTH_LONG).show();
                 }
-                if (TextUtils.isEmpty(  g)) {
+                if (TextUtils.isEmpty(g)) {
                     Toast.makeText(adroomClick.this, "please write price", Toast.LENGTH_LONG).show();
-                } else{
+                } else {
 
                     HashMap picpostmap = new HashMap();
 
@@ -88,13 +88,13 @@ public class adroomClick extends AppCompatActivity {
                     picpostmap.put("Pic", "https://firebasestorage.googleapis.com/v0/b/post-32466.appspot.com/o/Profile%20Images%2FiZbhgkZQJfhaPZn9guneOsv9Jw62.jpg?alt=media&token=dc24a261-3e2e-42b9-925e-bd5581c7f02b");
                     picpostmap.put("value", g);
 
-                    assert  discpost.getPk() != null;
+                    assert discpost.getPk() != null;
                     Roomreff.child(discpost.getPk()).updateChildren(picpostmap).addOnCompleteListener(new OnCompleteListener() {
                         @Override
                         public void onComplete(@NonNull Task task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Toast.makeText(adroomClick.this, "Data changed succesfuly", Toast.LENGTH_SHORT).show();
-                                Intent e=new Intent(adroomClick.this,rooms.class);
+                                Intent e = new Intent(adroomClick.this, rooms.class);
                                 startActivity(e);
                             }
                         }
@@ -112,14 +112,14 @@ public class adroomClick extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if(id == android.R.id.home ){
+        if (id == android.R.id.home) {
             SendUserToMain();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void SendUserToMain() {
-        Intent e=new Intent(adroomClick.this,rooms.class);
+        Intent e = new Intent(adroomClick.this, rooms.class);
         startActivity(e);
     }
 }

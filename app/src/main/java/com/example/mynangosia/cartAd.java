@@ -236,7 +236,6 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
         @Override
         public void onClick(View v) {
 
-
         }
     }
 }
