@@ -93,7 +93,7 @@
                     android:layout_gravity="end"
                     android:orientation="horizontal">
 
-                    <ImageButton
+                    <Button
                         android:id="@+id/delete"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -102,7 +102,7 @@
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
-                    <ImageButton
+                    <Button
                         android:id="@+id/subtract"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
@@ -121,7 +121,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="15sp" />
 
-                    <ImageButton
+                    <Button
                         android:id="@+id/add"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
