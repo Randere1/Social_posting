@@ -23,7 +23,6 @@ public class alcoholGs implements Serializable {
     }
 
 
-
     public alcoholGs() {
     }
 

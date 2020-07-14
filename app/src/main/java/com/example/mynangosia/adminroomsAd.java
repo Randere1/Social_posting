@@ -32,15 +32,13 @@ public class adminroomsAd extends RecyclerView.Adapter<adminroomsAd.MyViewHolder
     private DatabaseReference mDatabaseRef;
     private ChildEventListener mChildEvent;
 
-    public  adminroomsAd (Context mContext,ArrayList<roomsGS> discposts){
-        this.mContext =mContext;
-        this.discposts=discposts;
-        this.exampleListFull= new ArrayList<>(discposts);
+    public adminroomsAd(Context mContext, ArrayList<roomsGS> discposts) {
+        this.mContext = mContext;
+        this.discposts = discposts;
+        this.exampleListFull = new ArrayList<>(discposts);
 
     }
-
-
-
+    
     @NonNull
     @Override
     public adminroomsAd.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,12 +59,11 @@ public class adminroomsAd extends RecyclerView.Adapter<adminroomsAd.MyViewHolder
         Picasso.get().load(post.getPic()).fit().into(holder.postimage);
 
 
-
     }
 
     @Override
     public int getItemCount() {
-        return discposts .size();
+        return discposts.size();
     }
 
     @Override
@@ -100,16 +97,15 @@ public class adminroomsAd extends RecyclerView.Adapter<adminroomsAd.MyViewHolder
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             discposts.clear();
-            discposts.addAll((List)  results.values);
+            discposts.addAll((List) results.values);
             notifyDataSetChanged();
         }
     };
 
 
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
-        TextView date, time, userName, description,price,place,name,contact,msg,comment;
+        TextView date, time, userName, description, price, place, name, contact, msg, comment;
         CircleImageView profileImage;
         ImageView postimage;
         ImageButton nopost_comment;
@@ -118,10 +114,9 @@ public class adminroomsAd extends RecyclerView.Adapter<adminroomsAd.MyViewHolder
             super(itemView);
 
 
-
             name = itemView.findViewById(R.id.biz_product_name);
             price = itemView.findViewById(R.id.biz_price);
-            postimage=(ImageView)itemView.findViewById(R.id.biz_image);
+            postimage = (ImageView) itemView.findViewById(R.id.biz_image);
 
             itemView.setOnClickListener(this);
         }
@@ -134,7 +129,6 @@ public class adminroomsAd extends RecyclerView.Adapter<adminroomsAd.MyViewHolder
             Intent intent = new Intent(v.getContext(), adroomClick.class);
             intent.putExtra("Clickable", adminroomClick);
             v.getContext().startActivity(intent);
-
 
 
         }

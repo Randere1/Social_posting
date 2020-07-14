@@ -6,11 +6,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,19 +30,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class alcoholClick extends AppCompatActivity {
 
-    TextView a,b,c,count;
-    Button d;
+    TextView a, b, c, count;
+    Button AddToCart;
     private Toolbar mtoolbar;
-    String id ,f,g ,i;
-    ImageButton j,add,subtract;
-    EditText quantity;
-    int num1 = 1 ,num2= 1 ,sum;
+    String id, f, g, i;
+    ImageView j;
+    ImageButton add, subtract;
+    TextView quantity;
+    int num1 = 1, num2 = 1, sum;
     private FirebaseAuth mAuth, eAuth;
-    private DatabaseReference users, Alcohols,cart;
+    private DatabaseReference users, Alcohols, cart;
     String currentUserId;
     int y;
-CircleImageView carti;
-
+    CircleImageView carti;
 
 
     @Override
@@ -52,10 +50,10 @@ CircleImageView carti;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alcohol_click);
 
-        a = findViewById( R.id.biz_something);
-        b = findViewById( R.id.biz_price);
-        c = findViewById( R.id.biz_moredisc);
-        d = findViewById( R.id.biz_Post_button);
+        a = findViewById(R.id.biz_something);
+        b = findViewById(R.id.biz_price);
+        c = findViewById(R.id.biz_moredisc);
+        AddToCart = findViewById(R.id.btnAddToCart);
         j = findViewById(R.id.biz_imagei);
         carti = findViewById(R.id.cart);
         count = findViewById(R.id.item_count);
@@ -70,8 +68,7 @@ CircleImageView carti;
         cart = FirebaseDatabase.getInstance().getReference();
 
 
-
-        mtoolbar=findViewById(R.id.biz_post_bar);
+        mtoolbar = findViewById(R.id.biz_post_bar);
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -88,9 +85,9 @@ CircleImageView carti;
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    String  a = dataSnapshot.child("FullName").getValue().toString();
-                    assert  a != null;
+                if (dataSnapshot.exists()) {
+                    String a = dataSnapshot.child("FullName").getValue().toString();
+                    assert a != null;
                     cart.child("Carts").child(a).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -118,14 +115,14 @@ CircleImageView carti;
         });
 
 
-        d.setOnClickListener(new View.OnClickListener() {
+        AddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //    Toast.makeText(alcoholClick.this, "not yet coded", Toast.LENGTH_SHORT).show();
+                //    Toast.makeText(alcoholClick.this, "not yet coded", Toast.LENGTH_SHORT).show();
                 users.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()){
+                        if (dataSnapshot.exists()) {
                             String b = dataSnapshot.child("FullName").getValue().toString();
 
 
@@ -135,9 +132,9 @@ CircleImageView carti;
                             String o = discpost.getValue().toString();
                             int r = Integer.parseInt(o);
 
-                            int c = v * r ;
+                            int c = v * r;
 
-                            Toast.makeText(alcoholClick.this, "sum"+c, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(alcoholClick.this, "sum" + c, Toast.LENGTH_SHORT).show();
 
                             String z = Integer.toString(c);
 
@@ -147,14 +144,14 @@ CircleImageView carti;
                             picpostmap.put("productName", discpost.getProductName());
                             picpostmap.put("pk", discpost.getPk());
                             picpostmap.put("Value", discpost.getValue());
-                            picpostmap.put("Pic",discpost.getPic() );
-                            picpostmap.put("quantity",y );
-                            picpostmap.put("total",z );
-                            picpostmap.put("description",discpost.getDescription());
+                            picpostmap.put("Pic", discpost.getPic());
+                            picpostmap.put("quantity", y);
+                            picpostmap.put("total", z);
+                            picpostmap.put("description", discpost.getDescription());
                             cart.child("Carts").child(b).child(discpost.getPk()).updateChildren(picpostmap).addOnCompleteListener(new OnCompleteListener() {
                                 @Override
                                 public void onComplete(@NonNull Task task) {
-                                    if (task.isSuccessful()){
+                                    if (task.isSuccessful()) {
 
                                         SendUserToMain();
                                     }
@@ -175,46 +172,44 @@ CircleImageView carti;
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String value = quantity.getText().toString();
                 int finalValue = Integer.parseInt(value);
-                sum = finalValue + 1;
-
-                int a = sum;
-                String  str = Integer.toString(a);
-
-               quantity.setText(str);
+                finalValue++;
+                String str = Integer.toString(finalValue);
+                quantity.setText(str);
 
             }
         });
         subtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String value = quantity.getText().toString();
                 int finalValue = Integer.parseInt(value);
-                sum = finalValue - num2;
-
-                int a = sum;
-                String str = Integer.toString(a);
-                quantity.setText(str);
+                if (finalValue == 1) {
+                    Toast.makeText(alcoholClick.this, "Quantity can't be less than 1", Toast.LENGTH_SHORT).show();
+                } else {
+                    finalValue--;
+                    String str = Integer.toString(finalValue);
+                    quantity.setText(str);
+                }
             }
         });
 
 
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if(id == android.R.id.home ){
+        if (id == android.R.id.home) {
             SendUserToMain();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void SendUserToMain() {
-        Intent e=new Intent(alcoholClick.this,MainActivity.class);
+        Intent e = new Intent(alcoholClick.this, MainActivity.class);
         startActivity(e);
     }
 }

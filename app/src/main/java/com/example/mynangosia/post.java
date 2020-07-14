@@ -69,7 +69,7 @@ public class post extends AppCompatActivity {
         hint=findViewById(R.id.biz_click);
         postimage=findViewById(R.id.biz_image);
         postimagei=findViewById(R.id.biz_imagei);
-        frame=findViewById(R.id.biz_i);
+//        frame=findViewById(R.id.biz_i);
         scrollView=findViewById(R.id.biz_scroll);
 
         mtoolbar=findViewById(R.id.biz_post_bar);
