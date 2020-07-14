@@ -38,7 +38,7 @@ public class adminroomsAd extends RecyclerView.Adapter<adminroomsAd.MyViewHolder
         this.exampleListFull = new ArrayList<>(discposts);
 
     }
-    
+
     @NonNull
     @Override
     public adminroomsAd.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

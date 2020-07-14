@@ -123,46 +123,47 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
         holder.h.setText(post.getQuantity());
         Picasso.get().load(post.getPic()).into(holder.g);
 
-
-        holder.f.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
-                refrence.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.exists()) {
-                            String a = dataSnapshot.child("FullName").getValue().toString();
-
-                            String i = post.getQuantity().toString();
-                            int y = Integer.parseInt(i);
-                            String bu = post.getValue().toString();
-                            int yi = Integer.parseInt(bu);
-                            sum = y + 1;
-                            holder.h.setText(Integer.toString(sum));
-                            int product = sum * yi;
-
-                            String str = Integer.toString(product);
-                            String q = Integer.toString(sum);
-                            HashMap picpostmap = new HashMap();
-
-                            picpostmap.put("quantity", q);
-                            picpostmap.put("total", str);
-                            DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("Carts");
-                            refrence.child(a).child(post.getPk()).updateChildren(picpostmap);
-                            notifyItemInserted(mrequestGs.size() + 1);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-            }
-        });
+/** I dont know what this code is for.
+ * Thats why ave commented it out because it was giving me error on the button */
+//        holder.f.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
+//                refrence.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                        if (dataSnapshot.exists()) {
+//                            String a = dataSnapshot.child("FullName").getValue().toString();
+//
+//                            String i = post.getQuantity().toString();
+//                            int y = Integer.parseInt(i);
+//                            String bu = post.getValue().toString();
+//                            int yi = Integer.parseInt(bu);
+//                            sum = y + 1;
+//                            holder.h.setText(Integer.toString(sum));
+//                            int product = sum * yi;
+//
+//                            String str = Integer.toString(product);
+//                            String q = Integer.toString(sum);
+//                            HashMap picpostmap = new HashMap();
+//
+//                            picpostmap.put("quantity", q);
+//                            picpostmap.put("total", str);
+//                            DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("Carts");
+//                            refrence.child(a).child(post.getPk()).updateChildren(picpostmap);
+//                            notifyItemInserted(mrequestGs.size() + 1);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+//            }
+//        });
     }
 
     @Override
@@ -172,7 +173,7 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
 
     public class requestVh extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView a, b, c;
-        ImageButton d, e, f;
+        Button delete, add, subtract;
         ImageView g;
         TextView h;
 
@@ -180,15 +181,15 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
             super(itemView);
             a = itemView.findViewById(R.id.description);
             c = itemView.findViewById(R.id.price);
-            d = itemView.findViewById(R.id.delete);
-            e = itemView.findViewById(R.id.add);
-            f = itemView.findViewById(R.id.subtract);
+            delete = itemView.findViewById(R.id.delete);
+            add = itemView.findViewById(R.id.add);
+            subtract = itemView.findViewById(R.id.subtract);
             g = itemView.findViewById(R.id.image);
             h = itemView.findViewById(R.id.quantity);
 
             itemView.setOnClickListener(this);
 
-            d.setOnClickListener(new View.OnClickListener() {
+            delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int pstn = getAdapterPosition();
@@ -200,23 +201,24 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
                 }
             });
 
-            e.setOnClickListener(new View.OnClickListener() {
+            add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String quantity = h.getText().toString();
                     int initialQuantity = Integer.parseInt(quantity);
-                    initialQuantity++;
+                    initialQuantity ++;
                     String finalQuantity = String.valueOf(initialQuantity);
                     h.setText(finalQuantity);
                 }
             });
 
-            f.setOnClickListener(new View.OnClickListener() {
+            subtract.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String quantity1 = h.getText().toString();
-                    int initialQuantity1 = Integer.parseInt(quantity1);
-                    if (initialQuantity1 == 1) {
+                    String currentQuantity = h.getText().toString();
+                    int currentQuantity1 = Integer.parseInt(currentQuantity);
+
+                    if (currentQuantity1 == 1) {
                         int pstn = getAdapterPosition();
                         cartGs s = mrequestGs.get(pstn);
                         mDatabaseRef.child(s.getPk()).removeValue();
@@ -224,13 +226,13 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
                         notifyDataSetChanged();
                         notifyItemRemoved(pstn);
                     } else {
-                        initialQuantity1--;
-                        String finalQuantity1 = String.valueOf(initialQuantity1);
-                        h.setText(finalQuantity1);
+                        currentQuantity1 --;
+                        String currentQuantity2 = String.valueOf(currentQuantity1);
+                        h.setText(currentQuantity2);
+
                     }
                 }
             });
-
         }
 
         @Override

@@ -22,17 +22,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:gravity="end"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/cart"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="3dp"
+                android:layout_gravity="center"
                 android:src="@drawable/cart"
                 app:civ_border_width="2dp" />
 
@@ -41,8 +39,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginBottom="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
                     android:text="@string/quantity_null"
                     android:textColor="@android:color/black" />
 
@@ -54,8 +52,8 @@
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
             android:background="#3aa8c1"
+            android:layout_below="@+id/main_page_bar"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
