@@ -5,9 +5,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -15,7 +12,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -31,7 +27,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -45,11 +40,9 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     String currentUserId;
     private NavigationView navigationView;
     private ActionBarDrawerToggle mToggle;
-    private CircleImageView carti;
+    private CircleImageView shoppingCart;
     private TextView navprofilename, navid,count;
-
     int y;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +63,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         cart = FirebaseDatabase.getInstance().getReference();
 
         count = findViewById(R.id.item_count);
-        carti = findViewById(R.id.cart);
+        shoppingCart = findViewById(R.id.cart);
 
 
         setSupportActionBar(mToolbar);
@@ -85,18 +78,13 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setBackgroundColor(getResources().getColor(R.color.colorNavigation));
 
-        carti.setOnClickListener(new View.OnClickListener() {
+        shoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent uv = new Intent(MainActivity.this, myCart.class);
                 startActivity(uv);
             }
         });
-
-
-
-
 
         navprofilename = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user);
         navid = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_phone);
@@ -162,7 +150,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
                             if (dataSnapshot.exists()) {
                                 y = (int) dataSnapshot.getChildrenCount();
-                                count.setText(Integer.toString(y));
+                                count.setText(String.valueOf(y));
                             } else {
                                 count.setVisibility(View.GONE);
                             }

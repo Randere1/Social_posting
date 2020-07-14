@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -30,12 +31,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class alcoholClick extends AppCompatActivity {
 
-    TextView a, b, c, count;
+    public static final String TAG = "alcoholClick";
+
+    TextView name, price, description, count;
     Button AddToCart;
     private Toolbar mtoolbar;
     String id, f, g, i;
-    ImageView j;
+    ImageView image;
     ImageButton add, subtract;
+    CircleImageView shoppingCart;
     TextView quantity;
     int num1 = 1, num2 = 1, sum;
     private FirebaseAuth mAuth, eAuth;
@@ -50,21 +54,31 @@ public class alcoholClick extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alcohol_click);
 
-        a = findViewById(R.id.biz_something);
-        b = findViewById(R.id.biz_price);
-        c = findViewById(R.id.biz_moredisc);
+        name = findViewById(R.id.biz_something);
+        price = findViewById(R.id.biz_price);
+        description = findViewById(R.id.biz_moredisc);
         AddToCart = findViewById(R.id.btnAddToCart);
-        j = findViewById(R.id.biz_imagei);
+        image = findViewById(R.id.biz_imagei);
         carti = findViewById(R.id.cart);
         count = findViewById(R.id.item_count);
         quantity = findViewById(R.id.quantity);
         add = findViewById(R.id.add);
         subtract = findViewById(R.id.subtract);
+        shoppingCart = findViewById(R.id.cart);
+
+        shoppingCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(alcoholClick.this, myCart.class));
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
 
         users = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
+        Alcohols = FirebaseDatabase.getInstance().getReference().child("alcohols").child("pk");
+
         cart = FirebaseDatabase.getInstance().getReference();
 
 
@@ -76,10 +90,10 @@ public class alcoholClick extends AppCompatActivity {
 
         Intent intent = getIntent();
         final alcoholGs discpost = (alcoholGs) intent.getSerializableExtra("Clickable");
-        a.setText(discpost.getProductName());
-        b.setText(discpost.getValue());
-        c.setText(discpost.getDescription());
-        Picasso.get().load(discpost.getPic()).into(j);
+        name.setText(discpost.getProductName());
+        price.setText(discpost.getValue());
+        description.setText(discpost.getDescription());
+        Picasso.get().load(discpost.getPic()).into(image);
 
 
         users.addValueEventListener(new ValueEventListener() {
@@ -118,34 +132,27 @@ public class alcoholClick extends AppCompatActivity {
         AddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //    Toast.makeText(alcoholClick.this, "not yet coded", Toast.LENGTH_SHORT).show();
+                totalPrices();
                 users.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             String b = dataSnapshot.child("FullName").getValue().toString();
+                            String quantity = alcoholClick.this.quantity.getText().toString();
+                            int currentQuantity = Integer.parseInt(quantity);
+                            String value = discpost.getValue();
+                            int finalValue = Integer.parseInt(value);
+                            int totalValue = currentQuantity * finalValue;
 
-
-                            String y = quantity.getText().toString();
-                            int v = Integer.parseInt(y);
-
-                            String o = discpost.getValue().toString();
-                            int r = Integer.parseInt(o);
-
-                            int c = v * r;
-
-                            Toast.makeText(alcoholClick.this, "sum" + c, Toast.LENGTH_SHORT).show();
-
-                            String z = Integer.toString(c);
+                            Toast.makeText(alcoholClick.this, "sum" + totalValue, Toast.LENGTH_SHORT).show();
+                            String z = Integer.toString(totalValue);
 
                             HashMap picpostmap = new HashMap();
-
-
                             picpostmap.put("productName", discpost.getProductName());
                             picpostmap.put("pk", discpost.getPk());
                             picpostmap.put("Value", discpost.getValue());
                             picpostmap.put("Pic", discpost.getPic());
-                            picpostmap.put("quantity", y);
+                            picpostmap.put("quantity", quantity);
                             picpostmap.put("total", z);
                             picpostmap.put("description", discpost.getDescription());
                             cart.child("Carts").child(b).child(discpost.getPk()).updateChildren(picpostmap).addOnCompleteListener(new OnCompleteListener() {
@@ -157,7 +164,19 @@ public class alcoholClick extends AppCompatActivity {
                                     }
                                 }
                             });
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                Alcohols.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
 
                         }
                     }
@@ -188,13 +207,20 @@ public class alcoholClick extends AppCompatActivity {
                 if (finalValue == 1) {
                     Toast.makeText(alcoholClick.this, "Quantity can't be less than 1", Toast.LENGTH_SHORT).show();
                 } else {
-                    finalValue--;
+                    finalValue --;
                     String str = Integer.toString(finalValue);
                     quantity.setText(str);
                 }
             }
         });
+    }
 
+    public void totalPrices(){
+        int current_price = Integer.parseInt(price.getText().toString());
+        int current_quantity = Integer.parseInt(quantity.getText().toString());
+        int finalAmount = current_price * current_quantity;
+
+        alcoholGs.total_price = String.valueOf(finalAmount);
 
     }
 

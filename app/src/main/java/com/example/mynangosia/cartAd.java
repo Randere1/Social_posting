@@ -123,7 +123,8 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
         holder.h.setText(post.getQuantity());
         Picasso.get().load(post.getPic()).into(holder.g);
 
-
+/** I dont know what this code is for.
+ * Thats why ave commented it out because it was giving me error on the button */
 //        holder.f.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -172,7 +173,7 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
 
     public class requestVh extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView a, b, c;
-        Button delete, add, subtract, f;
+        Button delete, add, subtract;
         ImageView g;
         TextView h;
 
