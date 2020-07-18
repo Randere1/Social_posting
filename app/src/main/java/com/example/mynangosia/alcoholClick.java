@@ -43,9 +43,9 @@ public class alcoholClick extends AppCompatActivity {
     TextView quantity;
     int num1 = 1, num2 = 1, sum;
     private FirebaseAuth mAuth, eAuth;
-    private DatabaseReference users, Alcohols, cart;
+    private DatabaseReference users, Alcohols, cart,Total;
     String currentUserId;
-    int y;
+    int y,totalValue,s;
     CircleImageView carti;
 
 
@@ -77,6 +77,7 @@ public class alcoholClick extends AppCompatActivity {
         currentUserId = mAuth.getCurrentUser().getUid();
 
         users = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
+        Total = FirebaseDatabase.getInstance().getReference().child("Total").child(currentUserId);
         Alcohols = FirebaseDatabase.getInstance().getReference().child("alcohols").child("pk");
 
         cart = FirebaseDatabase.getInstance().getReference();
@@ -141,8 +142,8 @@ public class alcoholClick extends AppCompatActivity {
                             String quantity = alcoholClick.this.quantity.getText().toString();
                             int currentQuantity = Integer.parseInt(quantity);
                             String value = discpost.getValue();
-                            int finalValue = Integer.parseInt(value);
-                            int totalValue = currentQuantity * finalValue;
+                            final int finalValue = Integer.parseInt(value);
+                             totalValue = currentQuantity * finalValue;
 
                             Toast.makeText(alcoholClick.this, "sum" + totalValue, Toast.LENGTH_SHORT).show();
                             String z = Integer.toString(totalValue);
@@ -159,6 +160,31 @@ public class alcoholClick extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task task) {
                                     if (task.isSuccessful()) {
+                                        Total.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                               if (dataSnapshot.exists()){
+                                                   String b = dataSnapshot.child("Total").getValue().toString();
+                                                   int currentTotal = Integer.parseInt(b);
+                                                  int finalTotal = totalValue + currentTotal;
+                                                   Toast.makeText(alcoholClick.this, "exists"+finalTotal, Toast.LENGTH_SHORT).show();
+                                                   String z = Integer.toString(finalTotal);
+                                                   HashMap picpostmap = new HashMap();
+                                                   picpostmap.put("Total", z);
+                                                 Total.updateChildren(picpostmap);
+                                               }else{
+                                                   String z = Integer.toString(totalValue);
+                                                   HashMap picpostmap = new HashMap();
+                                                   picpostmap.put("Total", z);
+                                                   Total.updateChildren(picpostmap);
+                                               }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
 
                                         SendUserToMain();
                                     }

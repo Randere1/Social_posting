@@ -41,68 +41,19 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
     private String accept, user, name, status, image, post;
     private DatabaseReference cart;
     RecyclerView recyclerView;
+    Context mContext;
     cartGs pp;
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference Reff, friendReff;
     String currentUserId;
     int sum, t;
 
-    public cartAd() {
-
-        mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
-        DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
-        refrence.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String a = dataSnapshot.child("FullName").getValue().toString();
-
-                    assert a != null;
-                    mFirebaseDatabase = FirebaseDatabase.getInstance();
-                    mDatabaseRef = mFirebaseDatabase.getReference().child("Carts").child(a);
-                    mChildEvent = new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                            pp = dataSnapshot.getValue(cartGs.class);
-                            pp.setPk(dataSnapshot.getKey());
-                            mrequestGs.add(pp);
-                            notifyItemInserted(mrequestGs.size() - 1);
-                            notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    };
-                    mDatabaseRef.addChildEventListener(mChildEvent);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+    public  cartAd (Context mContext, ArrayList<cartGs> mrequestGs) {
+        this.mContext = mContext;
+        this.mrequestGs = mrequestGs;
     }
+
+
 
     @NonNull
     @Override
@@ -122,48 +73,12 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
         holder.c.setText(post.getTotal());
         holder.h.setText(post.getQuantity());
         Picasso.get().load(post.getPic()).into(holder.g);
-
-/** I dont know what this code is for.
- * Thats why ave commented it out because it was giving me error on the button */
-//        holder.f.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
-//                refrence.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                        if (dataSnapshot.exists()) {
-//                            String a = dataSnapshot.child("FullName").getValue().toString();
-//
-//                            String i = post.getQuantity().toString();
-//                            int y = Integer.parseInt(i);
-//                            String bu = post.getValue().toString();
-//                            int yi = Integer.parseInt(bu);
-//                            sum = y + 1;
-//                            holder.h.setText(Integer.toString(sum));
-//                            int product = sum * yi;
-//
-//                            String str = Integer.toString(product);
-//                            String q = Integer.toString(sum);
-//                            HashMap picpostmap = new HashMap();
-//
-//                            picpostmap.put("quantity", q);
-//                            picpostmap.put("total", str);
-//                            DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("Carts");
-//                            refrence.child(a).child(post.getPk()).updateChildren(picpostmap);
-//                            notifyItemInserted(mrequestGs.size() + 1);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
-//            }
-//        });
+        holder.add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "wow", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -189,6 +104,8 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
 
             itemView.setOnClickListener(this);
 
+
+
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -208,7 +125,11 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
                     int initialQuantity = Integer.parseInt(quantity);
                     initialQuantity ++;
                     String finalQuantity = String.valueOf(initialQuantity);
+               
                     h.setText(finalQuantity);
+                    Toast.makeText(mContext, "wow", Toast.LENGTH_SHORT).show();
+
+
                 }
             });
 
