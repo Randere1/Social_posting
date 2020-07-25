@@ -1,6 +1,7 @@
 package com.example.mynangosia;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,7 +48,7 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference Reff, friendReff;
     String currentUserId;
-    int sum, t;
+    int OvralTotalPrice = 0, t;
 
     public  cartAd (Context mContext, ArrayList<cartGs> mrequestGs) {
         this.mContext = mContext;
@@ -73,12 +75,17 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
         holder.c.setText(post.getTotal());
         holder.h.setText(post.getQuantity());
         Picasso.get().load(post.getPic()).into(holder.g);
-        holder.add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext, "wow", Toast.LENGTH_SHORT).show();
-            }
-        });
+
+        int OneTypeProductPrice = ((Integer.valueOf(post.getValue()))) * Integer.valueOf(post.getQuantity());
+        OvralTotalPrice = OvralTotalPrice + OneTypeProductPrice;
+
+      String  z = Integer.toString(OvralTotalPrice);
+
+        Intent intent = new Intent("custom-message");
+        intent.putExtra("Total",z);
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
+
+
     }
 
     @Override
@@ -121,13 +128,12 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String quantity = h.getText().toString();
-                    int initialQuantity = Integer.parseInt(quantity);
-                    initialQuantity ++;
-                    String finalQuantity = String.valueOf(initialQuantity);
-               
-                    h.setText(finalQuantity);
-                    Toast.makeText(mContext, "wow", Toast.LENGTH_SHORT).show();
+                    int position = getAdapterPosition();
+                    cartGs cart_click = mrequestGs.get(position);
+                    Intent intent = new Intent(v.getContext(), AlEdit.class);
+                    intent.putExtra("Clickable", cart_click);
+                    v.getContext().startActivity(intent);
+
 
 
                 }
@@ -136,24 +142,15 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
             subtract.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String currentQuantity = h.getText().toString();
-                    int currentQuantity1 = Integer.parseInt(currentQuantity);
-
-                    if (currentQuantity1 == 1) {
-                        int pstn = getAdapterPosition();
-                        cartGs s = mrequestGs.get(pstn);
-                        mDatabaseRef.child(s.getPk()).removeValue();
-                        mrequestGs.remove(pstn);
-                        notifyDataSetChanged();
-                        notifyItemRemoved(pstn);
-                    } else {
-                        currentQuantity1 --;
-                        String currentQuantity2 = String.valueOf(currentQuantity1);
-                        h.setText(currentQuantity2);
-
-                    }
+                    int position = getAdapterPosition();
+                    cartGs cart_click = mrequestGs.get(position);
+                    Intent intent = new Intent(v.getContext(), AlEdit.class);
+                    intent.putExtra("Clickable", cart_click);
+                    v.getContext().startActivity(intent);
                 }
             });
+
+
         }
 
         @Override

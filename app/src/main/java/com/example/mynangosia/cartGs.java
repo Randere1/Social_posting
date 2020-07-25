@@ -1,7 +1,9 @@
 package com.example.mynangosia;
 
 
-public class cartGs {
+import java.io.Serializable;
+
+public class cartGs implements Serializable {
 
     private String productName;
     private String pk;

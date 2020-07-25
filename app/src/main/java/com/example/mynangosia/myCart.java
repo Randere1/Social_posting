@@ -2,12 +2,17 @@ package com.example.mynangosia;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -55,7 +60,20 @@ public class myCart extends AppCompatActivity {
 //        String str = intent.getStringExtra("Amount");
 //        totalPrices.setText(str);
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
+                new IntentFilter("custom-message"));
+
     }
+
+    public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Get extra data included in the Intent
+            String Total = intent.getStringExtra("Total");
+            totalPrices.setText(Total);
+            Toast.makeText(myCart.this,"Total" ,Toast.LENGTH_SHORT).show();
+        }
+    };
 
     private void showCart() {
         mAuth = FirebaseAuth.getInstance();

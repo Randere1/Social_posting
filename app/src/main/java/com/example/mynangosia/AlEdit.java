@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -29,9 +28,7 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class alcoholClick extends AppCompatActivity {
-
-    public static final String TAG = "alcoholClick";
+public class AlEdit extends AppCompatActivity {
 
     TextView name, price, description, count;
     Button AddToCart;
@@ -48,11 +45,10 @@ public class alcoholClick extends AppCompatActivity {
     int y,totalValue,s, currentTotal;
     CircleImageView carti;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alcohol_click);
+        setContentView(R.layout.activity_al_edit);
 
         name = findViewById(R.id.biz_something);
         price = findViewById(R.id.biz_price);
@@ -71,7 +67,7 @@ public class alcoholClick extends AppCompatActivity {
         shoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(alcoholClick.this, myCart.class));
+                startActivity(new Intent(AlEdit.this, myCart.class));
             }
         });
 
@@ -92,45 +88,14 @@ public class alcoholClick extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Intent intent = getIntent();
-        final alcoholGs discpost = (alcoholGs) intent.getSerializableExtra("Clickable");
+        final cartGs discpost = (cartGs) intent.getSerializableExtra("Clickable");
         name.setText(discpost.getProductName());
         price.setText(discpost.getValue());
+        quantity.setText(discpost.getQuantity());
         description.setText(discpost.getDescription());
         Picasso.get().load(discpost.getPic()).into(image);
 
-        Total.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    String bi = dataSnapshot.child("Total").getValue().toString();
-                    gi.setText(bi);
-                   Toast.makeText(alcoholClick.this, "initial total" +bi, Toast.LENGTH_SHORT).show();
-                    /* Toast.makeText(alcoholClick.this, "current total" +current, Toast.LENGTH_SHORT).show();
-                    String b = gi.getText().toString();
-                    int iniTotal = Integer.parseInt(b);
-                    String c = gu.getText().toString();
-                    int curTotal = Integer.parseInt(c);
-                    int sum = iniTotal + curTotal;
-                    Toast.makeText(alcoholClick.this, "all done" + sum, Toast.LENGTH_SHORT).show();
-                    final String d = Integer.toString(sum);
-                    HashMap picpostmap = new HashMap();
-                    picpostmap.put("Total", d);
-                    Total.updateChildren(picpostmap);
-                    Toast.makeText(alcoholClick.this, "all done" + sum, Toast.LENGTH_SHORT).show();*/
-                }else{
-                /*    String c = gu.getText().toString();
-                    HashMap picpostmap = new HashMap();
-                    picpostmap.put("Total", c);
-                    Total.updateChildren(picpostmap); */
-                    Toast.makeText(alcoholClick.this, "Doesnt exist", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
         users.addValueEventListener(new ValueEventListener() {
@@ -174,16 +139,16 @@ public class alcoholClick extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                             b = dataSnapshot.child("FullName").getValue().toString();
-                            String quantity = alcoholClick.this.quantity.getText().toString();
+                            b = dataSnapshot.child("FullName").getValue().toString();
+                            String quantity = AlEdit.this.quantity.getText().toString();
                             int currentQuantity = Integer.parseInt(quantity);
                             String value = discpost.getValue();
                             final int finalValue = Integer.parseInt(value);
-                             totalValue = currentQuantity * finalValue;
+                            totalValue = currentQuantity * finalValue;
 
-                            Toast.makeText(alcoholClick.this, "sum" + totalValue, Toast.LENGTH_SHORT).show();
-                             z = Integer.toString(totalValue);
-                             gu.setText(z);
+                            Toast.makeText(AlEdit.this, "sum" + totalValue, Toast.LENGTH_SHORT).show();
+                            z = Integer.toString(totalValue);
+                            gu.setText(z);
                             HashMap picpostmap = new HashMap();
                             picpostmap.put("productName", discpost.getProductName());
                             picpostmap.put("pk", discpost.getPk());
@@ -196,18 +161,7 @@ public class alcoholClick extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task task) {
                                     if (task.isSuccessful()) {
-                                        String b = gi.getText().toString();
-                                        int iniTotal = Integer.parseInt(b);
-                                        String c = gu.getText().toString();
-                                        int curTotal = Integer.parseInt(c);
-                                        int sum = iniTotal + curTotal;
-                                        final String d = Integer.toString(sum);
-                                        HashMap picpostmap = new HashMap();
-                                        picpostmap.put("Total", d);
-                                        Total.updateChildren(picpostmap);
-                                        Toast.makeText(alcoholClick.this, "all done" + sum, Toast.LENGTH_SHORT).show();
-
-                                        SendUserToMain();
+                                        SendUserToCart();
                                     }
                                 }
                             });
@@ -252,7 +206,7 @@ public class alcoholClick extends AppCompatActivity {
                 String value = quantity.getText().toString();
                 int finalValue = Integer.parseInt(value);
                 if (finalValue == 1) {
-                    Toast.makeText(alcoholClick.this, "Quantity can't be less than 1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AlEdit.this, "Quantity can't be less than 1", Toast.LENGTH_SHORT).show();
                 } else {
                     finalValue --;
                     String str = Integer.toString(finalValue);
@@ -260,6 +214,11 @@ public class alcoholClick extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void SendUserToCart() {
+        Intent f = new Intent(AlEdit.this,myCart.class);
+        startActivity(f);
     }
 
     public void totalPrices(){
@@ -282,7 +241,7 @@ public class alcoholClick extends AppCompatActivity {
     }
 
     private void SendUserToMain() {
-        Intent e = new Intent(alcoholClick.this, MainActivity.class);
+        Intent e = new Intent(AlEdit.this,MainActivity.class);
         startActivity(e);
     }
 }

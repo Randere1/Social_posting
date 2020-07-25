@@ -21,6 +21,7 @@
     <string name="quantity">1</string>
     <string name="product_name">Product Name</string>
     <string name="add_to_cart">Add To Cart</string>
+    <string name="Done">Done</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="register_here">Register here.</string>
