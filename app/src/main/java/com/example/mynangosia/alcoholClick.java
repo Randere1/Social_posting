@@ -40,7 +40,7 @@ public class alcoholClick extends AppCompatActivity {
     ImageView image;
     ImageButton add, subtract;
     CircleImageView shoppingCart;
-    TextView quantity, gu,gi;
+    TextView quantity;
     int num1 = 1, num2 = 1, sum;
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference users, Alcohols, cart,Total;
@@ -65,8 +65,7 @@ public class alcoholClick extends AppCompatActivity {
         add = findViewById(R.id.add);
         subtract = findViewById(R.id.subtract);
         shoppingCart = findViewById(R.id.cart);
-        gu= findViewById(R.id.current);
-        gi = findViewById(R.id.initial);
+
 
         shoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,39 +97,7 @@ public class alcoholClick extends AppCompatActivity {
         description.setText(discpost.getDescription());
         Picasso.get().load(discpost.getPic()).into(image);
 
-        Total.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    String bi = dataSnapshot.child("Total").getValue().toString();
-                    gi.setText(bi);
-                   Toast.makeText(alcoholClick.this, "initial total" +bi, Toast.LENGTH_SHORT).show();
-                    /* Toast.makeText(alcoholClick.this, "current total" +current, Toast.LENGTH_SHORT).show();
-                    String b = gi.getText().toString();
-                    int iniTotal = Integer.parseInt(b);
-                    String c = gu.getText().toString();
-                    int curTotal = Integer.parseInt(c);
-                    int sum = iniTotal + curTotal;
-                    Toast.makeText(alcoholClick.this, "all done" + sum, Toast.LENGTH_SHORT).show();
-                    final String d = Integer.toString(sum);
-                    HashMap picpostmap = new HashMap();
-                    picpostmap.put("Total", d);
-                    Total.updateChildren(picpostmap);
-                    Toast.makeText(alcoholClick.this, "all done" + sum, Toast.LENGTH_SHORT).show();*/
-                }else{
-                /*    String c = gu.getText().toString();
-                    HashMap picpostmap = new HashMap();
-                    picpostmap.put("Total", c);
-                    Total.updateChildren(picpostmap); */
-                    Toast.makeText(alcoholClick.this, "Doesnt exist", Toast.LENGTH_SHORT).show();
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
 
         users.addValueEventListener(new ValueEventListener() {
@@ -183,7 +150,7 @@ public class alcoholClick extends AppCompatActivity {
 
                             Toast.makeText(alcoholClick.this, "sum" + totalValue, Toast.LENGTH_SHORT).show();
                              z = Integer.toString(totalValue);
-                             gu.setText(z);
+
                             HashMap picpostmap = new HashMap();
                             picpostmap.put("productName", discpost.getProductName());
                             picpostmap.put("pk", discpost.getPk());
@@ -196,15 +163,7 @@ public class alcoholClick extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task task) {
                                     if (task.isSuccessful()) {
-                                        String b = gi.getText().toString();
-                                        int iniTotal = Integer.parseInt(b);
-                                        String c = gu.getText().toString();
-                                        int curTotal = Integer.parseInt(c);
-                                        int sum = iniTotal + curTotal;
-                                        final String d = Integer.toString(sum);
-                                        HashMap picpostmap = new HashMap();
-                                        picpostmap.put("Total", d);
-                                        Total.updateChildren(picpostmap);
+
                                         Toast.makeText(alcoholClick.this, "all done" + sum, Toast.LENGTH_SHORT).show();
 
                                         SendUserToMain();

@@ -1,6 +1,7 @@
 package com.example.mynangosia;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,9 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +33,7 @@ public class myCart extends AppCompatActivity {
     RecyclerView recyclerView1;
     String Amount;
     cartAd adapter2;
+    Button buy;
     ArrayList<cartGs> mrequestGs;
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference Reff, friendReff;
@@ -38,27 +43,47 @@ public class myCart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_cart);
-        showCart();
+
 
         totalPrices = findViewById(R.id.total_product_amount);
+        buy = findViewById(R.id.proceed_to_buy);
 
-    //    cartAd adapter2 = new cartAd();
+        cartAd adapter2 = new cartAd();
        recyclerView1 = findViewById(R.id.Posts);
       recyclerView1.setHasFixedSize(true);
       LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
         linearLayoutManager2.setReverseLayout(true);
        linearLayoutManager2.setStackFromEnd(true);
        recyclerView1.setLayoutManager(linearLayoutManager2);
-   //     recyclerView1.setAdapter(adapter2);
+       recyclerView1.setAdapter(adapter2);
 
-//        receivedAmount();
 
-//        Amount = alcoholGs.total_price;
-//        totalPrices.setText(Amount);
 
-//        Intent intent = getIntent();
-//        String str = intent.getStringExtra("Amount");
-//        totalPrices.setText(str);
+        buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CharSequence option [] = new CharSequence[]{
+                      "Mpesa" ,
+                      "Cash on Delivery"
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder((myCart.this));
+                        builder.setTitle("Payment Method:");
+                        builder.setIcon(getResources().getDrawable(android.R.drawable.ic_dialog_alert));
+                        builder.setItems(option, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                              if (which == 0){
+                                  Toast.makeText(myCart.this, "mpesa selected", Toast.LENGTH_SHORT).show();
+                              }
+                                if (which == 1){
+                                    Toast.makeText(myCart.this, "Cash On Delivery selected ", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        builder.show();
+            }
+        });
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
@@ -75,54 +100,7 @@ public class myCart extends AppCompatActivity {
         }
     };
 
-    private void showCart() {
-        mAuth = FirebaseAuth.getInstance();
-        currentUserId = mAuth.getCurrentUser().getUid();
-        DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
-        refrence.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String a = dataSnapshot.child("FullName").getValue().toString();
 
-                    assert a != null;
-                    mrequestGs = new ArrayList<>();
-                    DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("Carts").child(a);
-                    refrence.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            mrequestGs= new ArrayList<>();
-                            for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
-                                cartGs pp = eventSnapshot.getValue(cartGs.class);
-
-                                mrequestGs.add(pp);
-                            }
-                            adapter2 = new cartAd(myCart.this ,mrequestGs);
-                            recyclerView1.setAdapter(adapter2);
-                            adapter2.notifyDataSetChanged();
-
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-    }
 
     public void receivedAmount() {
 //        String Amount = totalPrices.getText().toString();

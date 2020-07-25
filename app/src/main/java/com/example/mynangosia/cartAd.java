@@ -40,22 +40,76 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseRef;
     private ChildEventListener mChildEvent;
-    private String accept, user, name, status, image, post;
     private DatabaseReference cart;
     RecyclerView recyclerView;
     Context mContext;
-    cartGs pp;
+
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference Reff, friendReff;
     String currentUserId;
-    int OvralTotalPrice = 0, t;
+    int OvralTotalPrice = 0,SelectedItemTotal, t;
 
-    public  cartAd (Context mContext, ArrayList<cartGs> mrequestGs) {
+  /*  public  cartAd (Context mContext, ArrayList<cartGs> mrequestGs) {
         this.mContext = mContext;
         this.mrequestGs = mrequestGs;
+    } */
+
+    public   cartAd () {
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
+
+        DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
+        refrence.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String a = dataSnapshot.child("FullName").getValue().toString();
+
+                    assert a != null;
+
+                    mFirebaseDatabase = FirebaseDatabase.getInstance();
+                    mDatabaseRef = mFirebaseDatabase.getReference().child("Carts").child(a);
+                    mChildEvent = new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                            cartGs pp = dataSnapshot.getValue(cartGs.class);
+                            pp.setPk(dataSnapshot.getKey());
+                            mrequestGs.add(pp);
+                            notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    };
+                    mDatabaseRef.addChildEventListener(mChildEvent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
-
-
 
     @NonNull
     @Override
@@ -75,6 +129,8 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
         holder.c.setText(post.getTotal());
         holder.h.setText(post.getQuantity());
         Picasso.get().load(post.getPic()).into(holder.g);
+
+        SelectedItemTotal = ((Integer.valueOf(post.getTotal())));
 
         int OneTypeProductPrice = ((Integer.valueOf(post.getValue()))) * Integer.valueOf(post.getQuantity());
         OvralTotalPrice = OvralTotalPrice + OneTypeProductPrice;
@@ -116,12 +172,18 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+
+
+
                     int pstn = getAdapterPosition();
                     cartGs s = mrequestGs.get(pstn);
                     mDatabaseRef.child(s.getPk()).removeValue();
                     mrequestGs.remove(pstn);
                     notifyDataSetChanged();
                     notifyItemRemoved(pstn);
+
+
                 }
             });
 
