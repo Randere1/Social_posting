@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="4dp"
             android:orientation="vertical">
@@ -26,14 +26,13 @@
             <ImageView
                 android:id="@+id/biz_image"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:layout_margin="3dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/biz_more"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
@@ -53,18 +52,32 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout"
             android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:ems="10"
-            android:hint="@string/product_name"
-            android:padding="10dp"
+            android:text="@string/product_name"
             android:textColor="@android:color/holo_orange_dark"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/biz_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/biz_product_name"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:ems="10"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/Black"
+            android:text="@string/more_information"
+            android:textSize="13sp"
+            />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:weightSum="1"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/biz_more"
             android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
@@ -72,10 +85,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_weight="0.08"
+                android:layout_weight="0.2"
                 android:ems="7"
                 android:text="Ksh."
-                android:textColor="@android:color/holo_blue_light"
+                android:textColor="@android:color/black"
                 android:textSize="13sp"
                 android:textStyle="bold" />
 
@@ -83,11 +96,12 @@
                 android:id="@+id/biz_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.8"
+                android:layout_marginStart="5dp"
                 android:ems="10"
-                android:hint="@string/price"
-                android:padding="10dp"
-                android:textSize="15sp" />
+                android:textColor="@android:color/holo_red_dark"
+                android:text="@string/price"
+                android:textSize="20sp" />
 
         </LinearLayout>
 </RelativeLayout>

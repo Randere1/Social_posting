@@ -146,7 +146,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/trash"
+                        android:background="@drawable/delete_24"
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -156,7 +156,7 @@
                         android:layout_height="30dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/subtract" />
+                        android:background="@drawable/substract_circle_24" />
 
                     <TextView
                         android:id="@+id/quantity"
@@ -175,7 +175,7 @@
                         android:layout_height="30dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
-                        android:background="@drawable/add" />
+                        android:background="@drawable/add_circle_24" />
 
                 </LinearLayout>
 
