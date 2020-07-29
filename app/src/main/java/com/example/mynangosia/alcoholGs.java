@@ -11,8 +11,10 @@ public class alcoholGs implements Serializable {
     private String value;
     private String pk;
     private String Pic;
+    public static String total_price;
 
-    public alcoholGs(String date, String time, String description, String productName, String value, String pk, String pic) {
+    public alcoholGs(String date, String time, String description, String productName, String value, String pk, String pic, String total_price) {
+        alcoholGs.total_price = total_price;
         this.setDate(date);
         this.setTime(time);
         this.setDescription(description);
@@ -21,7 +23,6 @@ public class alcoholGs implements Serializable {
         this.setPk(pk);
         setPic(pic);
     }
-
 
 
     public alcoholGs() {
@@ -82,5 +83,14 @@ public class alcoholGs implements Serializable {
 
     public void setPic(String pic) {
         Pic = pic;
+    }
+
+
+    public String getTotal_price() {
+        return total_price;
+    }
+
+    public void setTotal_price(String total_price) {
+        this.total_price = total_price;
     }
 }

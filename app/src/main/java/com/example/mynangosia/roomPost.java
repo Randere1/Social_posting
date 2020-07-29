@@ -65,7 +65,7 @@ public class roomPost extends AppCompatActivity {
         postname=findViewById(R.id.biz_something);
         Postprice=findViewById(R.id.biz_price);
         hint=findViewById(R.id.biz_click);
-        frame=findViewById(R.id.biz_i);
+//        frame=findViewById(R.id.biz_i);
         scrollView=findViewById(R.id.biz_scroll);
 
         mtoolbar=findViewById(R.id.biz_post_bar);

@@ -3,76 +3,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:background="#fff0f5"
     tools:context=".set">
+
     <FrameLayout
         android:id="@+id/frame_i"
         android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:layout_marginTop="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
         android:background="@drawable/frame_border">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
-
-
-
+            <EditText
+                android:id="@+id/set_fullname"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:ems="10"
+                android:hint="@string/enter_your_full_name"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:clickable="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/inputs"
+                android:inputType="textMultiLine"
+                android:focusable="true" />
 
             <EditText
                 android:id="@+id/set_username"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:ems="10"
-                android:hint="Enter Phone Number"
-                android:layout_marginTop="5dp"
+                android:hint="@string/enter_phone_number"
+                android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:padding="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/inputs"
-                android:inputType="textMultiLine" />
-            <EditText
-                android:id="@+id/set_fullname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter your Full Name*"
-                android:layout_marginTop="5dp"
-                android:padding="10dp"
-                android:clickable="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/inputs"
-                android:inputType="textMultiLine" />
-
-
-
-
-
+                android:inputType="textMultiLine"
+                android:focusable="true" />
 
             <Button
                 android:id="@+id/set_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
-                android:layout_marginRight="70dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/btn"
-                android:text="save"
-                android:textSize="24sp" />
-
-
+                android:text="@string/save"
+                android:textSize="15sp"/>
 
         </LinearLayout>
-
-
     </FrameLayout>
-
-
 </RelativeLayout>

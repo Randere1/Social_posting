@@ -1,6 +1,7 @@
 package com.example.mynangosia;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,48 +26,57 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class cartAd extends RecyclerView.Adapter<cartAd .requestVh> {
+public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
 
     ArrayList<cartGs> mrequestGs = new ArrayList<cartGs>();
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseRef;
     private ChildEventListener mChildEvent;
-    private String accept,user,name,status,image,post ;
     private DatabaseReference cart;
     RecyclerView recyclerView;
-    cartGs pp;
+    Context mContext;
+
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference Reff, friendReff;
     String currentUserId;
-    int sum, t ;
+    int OvralTotalPrice = 0,SelectedItemTotal, t;
 
-    public  cartAd (){
+  /*  public  cartAd (Context mContext, ArrayList<cartGs> mrequestGs) {
+        this.mContext = mContext;
+        this.mrequestGs = mrequestGs;
+    } */
+
+    public   cartAd () {
 
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
+
         DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
         refrence.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                 String   a = dataSnapshot.child("FullName").getValue().toString();
+                if (dataSnapshot.exists()) {
+                    String a = dataSnapshot.child("FullName").getValue().toString();
 
-                    assert  a != null;
+                    assert a != null;
+
                     mFirebaseDatabase = FirebaseDatabase.getInstance();
                     mDatabaseRef = mFirebaseDatabase.getReference().child("Carts").child(a);
                     mChildEvent = new ChildEventListener() {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                            pp = dataSnapshot.getValue(cartGs.class);
+
+                            cartGs pp = dataSnapshot.getValue(cartGs.class);
                             pp.setPk(dataSnapshot.getKey());
                             mrequestGs.add(pp);
-                            notifyItemInserted( mrequestGs.size() - 1);
                             notifyDataSetChanged();
                         }
 
@@ -90,7 +102,6 @@ public class cartAd extends RecyclerView.Adapter<cartAd .requestVh> {
                     };
                     mDatabaseRef.addChildEventListener(mChildEvent);
                 }
-
             }
 
             @Override
@@ -98,7 +109,6 @@ public class cartAd extends RecyclerView.Adapter<cartAd .requestVh> {
 
             }
         });
-
     }
 
     @NonNull
@@ -115,111 +125,98 @@ public class cartAd extends RecyclerView.Adapter<cartAd .requestVh> {
     @Override
     public void onBindViewHolder(@NonNull final requestVh holder, int position) {
         final cartGs post = mrequestGs.get(position);
-
-
         holder.a.setText(post.getProductName());
         holder.c.setText(post.getTotal());
         holder.h.setText(post.getQuantity());
         Picasso.get().load(post.getPic()).into(holder.g);
 
+        SelectedItemTotal = ((Integer.valueOf(post.getTotal())));
 
-        holder.f.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        int OneTypeProductPrice = ((Integer.valueOf(post.getValue()))) * Integer.valueOf(post.getQuantity());
+        OvralTotalPrice = OvralTotalPrice + OneTypeProductPrice;
 
-                DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
-                refrence.addValueEventListener(new ValueEventListener() {
-    @Override
-    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+      String  z = Integer.toString(OvralTotalPrice);
 
-        if (dataSnapshot.exists()){
-            String   a = dataSnapshot.child("FullName").getValue().toString();
-
-            String i = post.getQuantity().toString();
-            int y = Integer.parseInt(i);
-            String bu = post.getValue().toString();
-            int yi = Integer.parseInt(bu);
-            sum = y + 1;
-            holder.h.setText(Integer.toString(sum));
-            int product = sum * yi;
-
-            String str = Integer.toString(product);
-            String q = Integer.toString(sum);
-            HashMap picpostmap = new HashMap();
-
-            picpostmap.put("quantity",q );
-            picpostmap.put("total",str );
-            DatabaseReference refrence = FirebaseDatabase.getInstance().getReference().child("Carts");
-            refrence.child(a).child(post.getPk()).updateChildren(picpostmap);
-            notifyItemInserted( mrequestGs.size() +1);
-        }
-    }
-
-    @Override
-    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-    }
-});
-
-            }
-        });
-
-
+        Intent intent = new Intent("custom-message");
+        intent.putExtra("Total",z);
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
 
 
     }
-
 
     @Override
     public int getItemCount() {
         return mrequestGs.size();
     }
 
-    public class requestVh extends RecyclerView.ViewHolder  implements View.OnClickListener{
-        TextView a,b,c;
-        ImageButton d,e,f;
+    public class requestVh extends RecyclerView.ViewHolder implements View.OnClickListener {
+        TextView a, b, c;
+        Button delete, add, subtract;
         ImageView g;
-        EditText h;
-
+        TextView h;
 
         public requestVh(@NonNull View itemView) {
             super(itemView);
-
-
-
-
             a = itemView.findViewById(R.id.description);
-            c= itemView.findViewById(R.id.price);
-            d= itemView.findViewById(R.id.delete);
-            e= itemView.findViewById(R.id.subtract);
-            f= itemView.findViewById(R.id.add);
-            g= itemView.findViewById(R.id.image);
-            h= itemView.findViewById(R.id.quantity);
+            c = itemView.findViewById(R.id.price);
+            delete = itemView.findViewById(R.id.delete);
+            add = itemView.findViewById(R.id.add);
+            subtract = itemView.findViewById(R.id.subtract);
+            g = itemView.findViewById(R.id.image);
+            h = itemView.findViewById(R.id.quantity);
 
             itemView.setOnClickListener(this);
 
 
-            d.setOnClickListener(new View.OnClickListener() {
+
+            delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
 
 
-                    int pstn =getAdapterPosition();
+
+                    int pstn = getAdapterPosition();
                     cartGs s = mrequestGs.get(pstn);
                     mDatabaseRef.child(s.getPk()).removeValue();
                     mrequestGs.remove(pstn);
                     notifyDataSetChanged();
                     notifyItemRemoved(pstn);
+
+
                 }
             });
+
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    cartGs cart_click = mrequestGs.get(position);
+                    Intent intent = new Intent(v.getContext(), AlEdit.class);
+                    intent.putExtra("Clickable", cart_click);
+                    v.getContext().startActivity(intent);
+
+
+
+                }
+            });
+
+            subtract.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    cartGs cart_click = mrequestGs.get(position);
+                    Intent intent = new Intent(v.getContext(), AlEdit.class);
+                    intent.putExtra("Clickable", cart_click);
+                    v.getContext().startActivity(intent);
+                }
+            });
+
 
         }
 
         @Override
         public void onClick(View v) {
-
-
 
         }
     }

@@ -32,14 +32,12 @@ public class AlcoholAd extends RecyclerView.Adapter<AlcoholAd.MyViewHolder> impl
     private DatabaseReference mDatabaseRef;
     private ChildEventListener mChildEvent;
 
-    public  AlcoholAd (Context mContext,ArrayList<alcoholGs> discposts){
-        this.mContext =mContext;
-        this.discposts=discposts;
-        this.exampleListFull= new ArrayList<>(discposts);
+    public AlcoholAd(Context mContext, ArrayList<alcoholGs> discposts) {
+        this.mContext = mContext;
+        this.discposts = discposts;
+        this.exampleListFull = new ArrayList<>(discposts);
 
     }
-
-
 
     @NonNull
     @Override
@@ -61,14 +59,10 @@ public class AlcoholAd extends RecyclerView.Adapter<AlcoholAd.MyViewHolder> impl
         Picasso.get().load(post.getPic()).fit().into(holder.postimage);
 
 
-
-
-
-         if (post.getDescription() != null) {
+        if (post.getDescription() != null) {
             holder.description.setVisibility(View.VISIBLE);
 
-        }  else
-        {
+        } else {
             holder.description.setVisibility(View.GONE);
         }
 
@@ -77,7 +71,7 @@ public class AlcoholAd extends RecyclerView.Adapter<AlcoholAd.MyViewHolder> impl
 
     @Override
     public int getItemCount() {
-        return discposts .size();
+        return discposts.size();
     }
 
     @Override
@@ -111,16 +105,15 @@ public class AlcoholAd extends RecyclerView.Adapter<AlcoholAd.MyViewHolder> impl
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             discposts.clear();
-            discposts.addAll((List)  results.values);
+            discposts.addAll((List) results.values);
             notifyDataSetChanged();
         }
     };
 
 
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
-        TextView date, time, userName, description,price,place,name,contact,msg,comment;
+        TextView date, time, userName, description, price, place, name, contact, msg, comment;
         CircleImageView profileImage;
         ImageView postimage;
         ImageButton nopost_comment;
@@ -129,11 +122,10 @@ public class AlcoholAd extends RecyclerView.Adapter<AlcoholAd.MyViewHolder> impl
             super(itemView);
 
 
-
             name = itemView.findViewById(R.id.biz_product_name);
             price = itemView.findViewById(R.id.biz_price);
             description = itemView.findViewById(R.id.biz_more);
-            postimage=(ImageView)itemView.findViewById(R.id.biz_image);
+            postimage = (ImageView) itemView.findViewById(R.id.biz_image);
 
             itemView.setOnClickListener(this);
         }
@@ -146,7 +138,6 @@ public class AlcoholAd extends RecyclerView.Adapter<AlcoholAd.MyViewHolder> impl
             Intent intent = new Intent(v.getContext(), adalcoholclick.class);
             intent.putExtra("Clickable", adminalcoholClick);
             v.getContext().startActivity(intent);
-
 
 
         }

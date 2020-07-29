@@ -2,89 +2,84 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main_drawer"
-    android:background ="#e6e6fa"
+    android:background="#e6e6fa"
     tools:context=".MainActivity">
 
     <RelativeLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/main_page_bar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:fitsSystemWindows="true"
-        android:background="#f5d9d5">
-
-
-
-
-        <TextView
-            android:id="@+id/item_count"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/main_page_bar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=" 0"
-            android:layout_marginBottom="40dp"
-            android:layout_marginLeft="220dp"
-            android:textColor="@android:color/black"
-            ></TextView>
+            android:background="#f5d9d5"
+            android:fitsSystemWindows="true">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/cart"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="-5dp"
-            android:layout_marginTop="3dp"
-            android:src="@drawable/cart"
-            app:civ_border_width="2dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:gravity="end"
+                android:orientation="horizontal">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/cart"
+                app:civ_border_width="2dp" />
 
-    </androidx.appcompat.widget.Toolbar>
+                <TextView
+                    android:id="@+id/item_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:text="@string/quantity_null"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="60dp"
             android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="#3aa8c1"
+            android:layout_below="@+id/main_page_bar"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_marginTop="100dp"
-            android:layout_height="fill_parent"
-            android:id="@+id/pager">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tablayout"
+            android:layout_marginTop="1dp">
 
         </androidx.viewpager.widget.ViewPager>
 
 
-
-
     </RelativeLayout>
-
-
 
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/main_nav"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/navigation_menu"
         android:layout_gravity="start"
         android:layout_marginBottom="3dp"
-        />
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/navigation_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

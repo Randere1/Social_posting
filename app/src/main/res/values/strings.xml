@@ -11,4 +11,42 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="dialog_choose_quantity">Choose Quantity</string>
+    <string name="cart_subtotal">Cart subtotal</string>
+    <string name="proceed_to_checkout">Proceed to Checkout</string>
+
+    <string name="edit">Edit</string>
+    <string name="quantity">1</string>
+    <string name="product_name">Product Name</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="Done">Done</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="register_here">Register here.</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="price">Price</string>
+    <string name="click_icon_to_add_image">Click icon to add image:</string>
+    <string name="more_information">More Information</string>
+    <string name="post">post</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="room_number">Room Number</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="enter_your_full_name">Enter your Full Name</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="log_in_click_here">Log In Click Here</string>
+
+    <string name="dialog_quantity_title">Qty</string>
+    <string name="todo">TODO</string>
+    <string name="select_item_size">Select Quantity</string>
+    <string name="quantity_text">Quantity</string>
+    <string name="quantity_null">0</string>
+    <string name="proceed_to_buy">Proceed to Buy</string>
+    <string name="total_price">Total Price</string>
+    <string name="ksh">Ksh.</string>
+    <string name="description">Description</string>
+    <string name="weight">Weight</string>
 </resources>

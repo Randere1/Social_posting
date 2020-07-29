@@ -1,13 +1,15 @@
 package com.example.mynangosia;
 
 
+import java.io.Serializable;
 
-public class cartGs {
+public class cartGs implements Serializable {
 
     private String productName;
     private String pk;
     private String Value;
     private String Pic;
+    public static String accumulatedPrice;
 
     public cartGs(String total) {
         this.setTotal(total);
@@ -21,13 +23,14 @@ public class cartGs {
     private String quantity;
     private String description;
 
-    public cartGs(String productName, String pk, String value, String pic, String quantity, String description) {
+    public cartGs(String productName, String pk, String value, String pic, String quantity, String description, String accumulatedPrice) {
         this.setProductName(productName);
         this.setPk(pk);
         setValue(value);
         setPic(pic);
         this.setQuantity(quantity);
         this.setDescription(description);
+        this.setAccumulatedPrice(accumulatedPrice);
     }
 
 
@@ -85,5 +88,13 @@ public class cartGs {
 
     public void setTotal(String total) {
         this.total = total;
+    }
+
+    public String getAccumulatedPrice() {
+        return accumulatedPrice;
+    }
+
+    public void setAccumulatedPrice(String accumulatedPrice) {
+        this.accumulatedPrice = accumulatedPrice;
     }
 }
