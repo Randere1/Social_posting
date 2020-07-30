@@ -13,7 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
+        <activity android:name=".AlEdit"/>
+        <activity android:name=".Mpesa.MpesaActivity"/>
+=======
         <activity android:name=".AlEdit"></activity>
+>>>>>>> master
         <activity android:name=".myCart" />
         <activity android:name=".adalcoholclick" />
         <activity android:name=".adroomClick" />

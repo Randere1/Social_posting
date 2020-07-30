@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+<<<<<<< HEAD
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+=======
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/mainLayout"
+>>>>>>> master
     android:orientation="vertical"
     app:cardCornerRadius="15dp">
 
@@ -19,16 +25,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
+            android:orientation="horizontal">
+=======
             android:orientation="horizontal"
             android:padding="5dp">
+>>>>>>> master
 
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="100dp"
+<<<<<<< HEAD
+                android:layout_height="110dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="4dp"
+=======
                 android:layout_height="108dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginTop="11dp"
+>>>>>>> master
                 android:scaleType="fitXY" />
 
             <LinearLayout
@@ -36,6 +53,106 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+<<<<<<< HEAD
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1.2"
+                        android:text="@string/product_name"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/weight"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="0.5"
+                        android:text="@string/weight"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="true"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:text="Ksh."
+                        android:textColor="@android:color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/initialPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="end"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="2dp"
+                        android:text="Total"
+                        android:textColor="@android:color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:text="Ksh."
+                        android:textColor="@android:color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+=======
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="match_parent"
@@ -85,20 +202,31 @@
                     android:layout_marginStart="5dp"
                     android:textColor="@android:color/black"
                     android:textSize="16sp" />
+>>>>>>> master
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+<<<<<<< HEAD
+                    android:gravity="end"
+                    android:layout_marginStart="5dp"
+=======
                     android:layout_marginStart="5dp"
                     android:layout_gravity="end"
+>>>>>>> master
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/delete"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+<<<<<<< HEAD
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/delete_24"
+=======
                         android:layout_marginTop="10dp"
                         android:background="@drawable/trash"
+>>>>>>> master
                         android:textSize="13sp"
                         android:textStyle="bold" />
 
@@ -106,16 +234,26 @@
                         android:id="@+id/subtract"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
+<<<<<<< HEAD
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/substract_circle_24" />
+=======
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/subtract" />
+>>>>>>> master
 
                     <TextView
                         android:id="@+id/quantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+<<<<<<< HEAD
+                        android:layout_marginTop="5dp"
+=======
                         android:layout_marginTop="10dp"
+>>>>>>> master
                         android:text="@string/quantity"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
@@ -126,8 +264,13 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="10dp"
+<<<<<<< HEAD
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/add_circle_24" />
+=======
                         android:layout_marginTop="10dp"
                         android:background="@drawable/add" />
+>>>>>>> master
 
                 </LinearLayout>
 

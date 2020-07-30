@@ -1,6 +1,9 @@
 package com.example.mynangosia;
 
+<<<<<<< HEAD
+=======
 import androidx.annotation.NonNull;
+>>>>>>> master
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -18,12 +21,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+<<<<<<< HEAD
+import com.example.mynangosia.Mpesa.MpesaActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+=======
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+>>>>>>> master
 
 import java.util.ArrayList;
 
@@ -33,7 +42,11 @@ public class myCart extends AppCompatActivity {
     RecyclerView recyclerView1;
     String Amount;
     cartAd adapter2;
+<<<<<<< HEAD
+    Button proceedToPay;
+=======
     Button buy;
+>>>>>>> master
     ArrayList<cartGs> mrequestGs;
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference Reff, friendReff;
@@ -46,7 +59,11 @@ public class myCart extends AppCompatActivity {
 
 
         totalPrices = findViewById(R.id.total_product_amount);
+<<<<<<< HEAD
+        proceedToPay = findViewById(R.id.proceed_to_buy);
+=======
         buy = findViewById(R.id.proceed_to_buy);
+>>>>>>> master
 
         cartAd adapter2 = new cartAd();
        recyclerView1 = findViewById(R.id.Posts);
@@ -59,7 +76,11 @@ public class myCart extends AppCompatActivity {
 
 
 
+<<<<<<< HEAD
+        proceedToPay.setOnClickListener(new View.OnClickListener() {
+=======
         buy.setOnClickListener(new View.OnClickListener() {
+>>>>>>> master
             @Override
             public void onClick(View v) {
                 CharSequence option [] = new CharSequence[]{
@@ -74,6 +95,10 @@ public class myCart extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                               if (which == 0){
+<<<<<<< HEAD
+                                  startActivity(new Intent(myCart.this, MpesaActivity.class));
+=======
+>>>>>>> master
                                   Toast.makeText(myCart.this, "mpesa selected", Toast.LENGTH_SHORT).show();
                               }
                                 if (which == 1){
