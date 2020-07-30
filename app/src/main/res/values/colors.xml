@@ -12,5 +12,8 @@
     <color name="mediumLightGrey">#d9d9d9 </color>
     <color name="lightGrey">#f2f2f2 </color>
     <color name="DarkGrey">#4d4d4d </color>
+<<<<<<< HEAD
     <color name="green">#008000 </color>
+=======
+>>>>>>> master
 </resources>
