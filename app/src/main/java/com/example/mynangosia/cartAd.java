@@ -46,7 +46,7 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
 
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference Reff, friendReff;
-    String currentUserId;
+    String currentUserId,z;
     int OvralTotalPrice = 0,SelectedItemTotal, t;
 
   /*  public  cartAd (Context mContext, ArrayList<cartGs> mrequestGs) {
@@ -134,8 +134,7 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
 
         int OneTypeProductPrice = ((Integer.valueOf(post.getValue()))) * Integer.valueOf(post.getQuantity());
         OvralTotalPrice = OvralTotalPrice + OneTypeProductPrice;
-
-      String  z = Integer.toString(OvralTotalPrice);
+        z = Integer.toString(OvralTotalPrice);
 
         Intent intent = new Intent("custom-message");
         intent.putExtra("Total",z);
@@ -151,7 +150,7 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
 
     public class requestVh extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView a, b, c;
-        Button delete, add, subtract;
+       ImageButton delete, add, subtract;
         ImageView g;
         TextView h;
 
@@ -178,10 +177,14 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
 
                     int pstn = getAdapterPosition();
                     cartGs s = mrequestGs.get(pstn);
+                    String g = s.getTotal();
                     mDatabaseRef.child(s.getPk()).removeValue();
-                    mrequestGs.remove(pstn);
-                    notifyDataSetChanged();
-                    notifyItemRemoved(pstn);
+                  //  mrequestGs.remove(pstn);
+                  //  notifyDataSetChanged();
+                  //  notifyItemRemoved(pstn);
+
+                    Intent intent = new Intent(v.getContext() , myCart.class);
+                    v.getContext().startActivity(intent);
 
 
                 }

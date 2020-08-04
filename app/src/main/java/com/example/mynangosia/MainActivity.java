@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     private CircleImageView shoppingCart;
     private TextView navprofilename, navid,count;
     int y;
+    String itemnum = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +82,15 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         shoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent uv = new Intent(MainActivity.this, myCart.class);
-                startActivity(uv);
+                String b = count.getText().toString();
+                if (b == null) {
+                    Toast.makeText(MainActivity.this, "Oops! your cart is empty...", Toast.LENGTH_SHORT).show();
+
+                }else {
+
+                    Intent uv = new Intent(MainActivity.this, myCart.class);
+                    startActivity(uv);
+                }
             }
         });
 
@@ -188,6 +196,8 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         } else {
             isUserInDataBase();
         }
+
+
     }
 
     private void isUserInDataBase() {

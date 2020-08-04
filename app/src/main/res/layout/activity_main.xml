@@ -41,7 +41,6 @@
                     android:layout_marginEnd="5dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="10dp"
-                    android:text="@string/quantity_null"
                     android:textColor="@android:color/black" />
 
             </LinearLayout>
