@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mynangosia.Mpesa.MpesaActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -180,23 +181,12 @@ public class admin extends AppCompatActivity implements f1.OnFragmentInteraction
 
             case  R.id.drink_menu:
 
-                Intent c = new Intent(admin.this, drinkorder.class);
+                Intent c = new Intent(admin.this, people_with_orders.class);
                 startActivity(c);
 
-                break;
 
 
 
-            case  R.id.Rooms_menu:
-
-                Intent v = new Intent(admin.this, rooms.class);
-                startActivity(v);
-
-                break;
-            case  R.id.Room_menu:
-
-                Intent d = new Intent(admin.this, roomorder.class);
-                startActivity(d);
 
                 return true;
 

@@ -9,19 +9,13 @@
     </item>
 
     <item android:id="@+id/drink_menu"
-        android:title="Alcohol Orders"
+        android:title="Orders"
         app:showAsAction="never">
     </item>
 
-    <item android:id="@+id/Room_menu"
-        android:title="Room  Orders"
-        app:showAsAction="never">
-    </item>
 
-    <item android:id="@+id/Rooms_menu"
-        android:title="Rooms"
-        app:showAsAction="never">
-    </item>
+
+
 
 
 

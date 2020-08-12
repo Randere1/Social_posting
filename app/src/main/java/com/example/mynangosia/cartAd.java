@@ -150,13 +150,13 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
 
     public class requestVh extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView a, b, c;
-       ImageButton delete, add, subtract;
+       Button delete, add, subtract;
         ImageView g;
         TextView h;
 
         public requestVh(@NonNull View itemView) {
             super(itemView);
-            a = itemView.findViewById(R.id.description);
+           a = itemView.findViewById(R.id.description);
             c = itemView.findViewById(R.id.price);
             delete = itemView.findViewById(R.id.delete);
             add = itemView.findViewById(R.id.add);
@@ -168,7 +168,7 @@ public class cartAd extends RecyclerView.Adapter<cartAd.requestVh> {
 
 
 
-            delete.setOnClickListener(new View.OnClickListener() {
+           delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

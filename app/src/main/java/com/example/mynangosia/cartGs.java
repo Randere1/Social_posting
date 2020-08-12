@@ -9,28 +9,33 @@ public class cartGs implements Serializable {
     private String pk;
     private String Value;
     private String Pic;
-    public static String accumulatedPrice;
-
-    public cartGs(String total) {
-        this.setTotal(total);
-    }
-
-    private String total;
-
-    public cartGs() {
-    }
-
+    private static String accumulatedPrice;
     private String quantity;
     private String description;
+    private String total;
 
-    public cartGs(String productName, String pk, String value, String pic, String quantity, String description, String accumulatedPrice) {
+    public cartGs(String productName, String pk, String value, String pic, String quantity, String description, String total) {
         this.setProductName(productName);
         this.setPk(pk);
         setValue(value);
         setPic(pic);
         this.setQuantity(quantity);
         this.setDescription(description);
-        this.setAccumulatedPrice(accumulatedPrice);
+        this.setTotal(total);
+    }
+
+
+
+
+    public cartGs() {
+    }
+
+    public static String getAccumulatedPrice() {
+        return accumulatedPrice;
+    }
+
+    public static void setAccumulatedPrice(String accumulatedPrice) {
+        cartGs.accumulatedPrice = accumulatedPrice;
     }
 
 
@@ -88,13 +93,5 @@ public class cartGs implements Serializable {
 
     public void setTotal(String total) {
         this.total = total;
-    }
-
-    public String getAccumulatedPrice() {
-        return accumulatedPrice;
-    }
-
-    public void setAccumulatedPrice(String accumulatedPrice) {
-        this.accumulatedPrice = accumulatedPrice;
     }
 }

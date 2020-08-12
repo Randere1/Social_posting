@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mynangosia.Mpesa.MpesaActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class myCart extends AppCompatActivity {
 
@@ -38,11 +40,18 @@ public class myCart extends AppCompatActivity {
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference Reff, friendReff;
     String currentUserId;
+    private DatabaseReference users, Alcohols, cart,orders;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_cart);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUserId = mAuth.getCurrentUser().getUid();
+        cart = FirebaseDatabase.getInstance().getReference();
+        users = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
 
 
         totalPrices = findViewById(R.id.total_product_amount);
@@ -62,33 +71,19 @@ public class myCart extends AppCompatActivity {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CharSequence option [] = new CharSequence[]{
-                      "Mpesa" ,
-                      "Cash on Delivery"
-                };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder((myCart.this));
-                        builder.setTitle("Payment Method:");
-                        builder.setIcon(getResources().getDrawable(android.R.drawable.ic_dialog_alert));
-                        builder.setItems(option, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                              if (which == 0){
-                                  Toast.makeText(myCart.this, "mpesa selected", Toast.LENGTH_SHORT).show();
-                              }
-                                if (which == 1){
-                                    Toast.makeText(myCart.this, "Cash On Delivery selected ", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                        builder.show();
-            }
+                String s = totalPrices.getText().toString();
+                Intent intent = new Intent(myCart.this , confirm_details.class);
+                intent.putExtra("Total", s);
+                startActivity(intent);
+                         }
         });
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter("custom-message"));
 
     }
+
+
 
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
@@ -102,28 +97,6 @@ public class myCart extends AppCompatActivity {
 
 
 
-    public void receivedAmount() {
-//        String Amount = totalPrices.getText().toString();
-//        String Amount2 = alcoholGs.total_price;
-//        int newPrice = Integer.parseInt(Amount);
-//        int receivedAmount = Integer.parseInt(Amount2);
-//
-//        int totalCalculations = newPrice + receivedAmount;
-//        totalPrices.setText(String.valueOf(totalCalculations));
-
-        alcoholGs alcoholGs1 = new alcoholGs();
-        String Amount3 = alcoholGs.total_price;
-        int newPrice1 = Integer.parseInt(Amount3);
-
-        String Amount4 = alcoholGs1.getTotal_price();
-        int newPrice2 = Integer.parseInt(Amount4);
-
-        int totalCalculations1 = newPrice1 + newPrice2;
-        totalPrices.setText(String.valueOf(totalCalculations1));
-
-
-
-    }
 
     @Override
     public void onBackPressed() {

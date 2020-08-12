@@ -50,7 +50,7 @@ public class STKPush {
         return Base64.encodeToString(str.getBytes(), Base64.NO_WRAP);
     }
     public static class Builder {
-        private String businessShortCode;
+        private String businessShortCode ;
         private String passkey;
         private String transactionType = Config.DEFAULT_TRANSACTION_TYPE;
         private int amount;

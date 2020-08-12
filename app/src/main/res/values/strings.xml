@@ -49,4 +49,6 @@
     <string name="ksh">Ksh.</string>
     <string name="description">Description</string>
     <string name="weight">Weight</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_retrieve_maps">Map</string>
 </resources>
