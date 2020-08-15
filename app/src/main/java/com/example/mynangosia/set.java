@@ -25,7 +25,7 @@ public class set extends AppCompatActivity {
     private Button save;
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference users;
-    String currentUserId;
+    String currentUserId,s;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +35,18 @@ public class set extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
 
+        Intent intent = getIntent();
+        Bundle b = intent.getExtras();
+        assert  b != null;
+        s = (String) b.get("Uid");
+
         users = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
 
         usrname = (EditText) findViewById(R.id.set_username);
         names = (EditText) findViewById(R.id.set_fullname);
         save = (Button) findViewById(R.id.set_save);
+
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

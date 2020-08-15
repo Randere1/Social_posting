@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,8 +84,9 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
             @Override
             public void onClick(View v) {
                 String b = count.getText().toString();
-                if (b == null) {
+                if (TextUtils.isEmpty(b)) {
                     Toast.makeText(MainActivity.this, "Oops! your cart is empty...", Toast.LENGTH_SHORT).show();
+
 
                 }else {
 
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                if (dataSnapshot.exists()){
-          String b = dataSnapshot.child("FullName").getValue().toString();
+                    String b = dataSnapshot.child("FullName").getValue().toString();
                    String c = dataSnapshot.child("username").getValue().toString();
 
                    navprofilename.setText(b);
@@ -193,15 +195,14 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         FirebaseUser onlineuser = mAuth.getCurrentUser();
         if (onlineuser == null) {
             DirectUserToLoginActivity();
-        } else {
-            isUserInDataBase();
         }
 
 
     }
 
     private void isUserInDataBase() {
-
+        FirebaseUser onlineuser = mAuth.getCurrentUser();
+        DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("users").child(onlineuser.getUid());
 
         users.addValueEventListener(new ValueEventListener() {
             @Override
@@ -210,21 +211,20 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
                     String  full = dataSnapshot.child("username").getValue().toString();
                     String  p ="not set";
                     if (full.equals(p) ){
+
+                        Toast.makeText(MainActivity.this, "profile not set", Toast.LENGTH_SHORT).show();
+                        DatabaseReference users = FirebaseDatabase.getInstance().getReference().child("users").child(currentUserId);
+                        HashMap picpostmap = new HashMap();
+                        picpostmap.put("username", "not set");
+                        picpostmap.put("Admin", "user");
+                        picpostmap.put("FullName", "user");
+                        picpostmap.put("ProfileImage", "https://firebasestorage.googleapis.com/v0/b/post-32466.appspot.com/o/Profile%20Images%2FiZbhgkZQJfhaPZn9guneOsv9Jw62.jpg?alt=media&token=dc24a261-3e2e-42b9-925e-bd5581c7f02b");
+                        users.updateChildren(picpostmap);
                         userMovedToSetUpActivity();
-                    }if (!full.equals(p)){
-                        String  b = dataSnapshot.child("username").getValue().toString();
-
+                    }else{
+                        Toast.makeText(MainActivity.this, "profile set", Toast.LENGTH_SHORT).show();
                     }
-                }else
-                {
-                    HashMap picpostmap = new HashMap();
-                    picpostmap.put("username", "not set");
-                    picpostmap.put("Admin", "user");
-                    picpostmap.put("ProfileImage", "https://firebasestorage.googleapis.com/v0/b/post-32466.appspot.com/o/Profile%20Images%2FiZbhgkZQJfhaPZn9guneOsv9Jw62.jpg?alt=media&token=dc24a261-3e2e-42b9-925e-bd5581c7f02b");
-                    users.updateChildren(picpostmap);
 
-                    userMovedToSetUpActivity();
-                    Toast.makeText(MainActivity.this, "Set your profile", Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -386,6 +386,9 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
                                 orders.child(cartCodeKey).child("description").setValue(description);
 
                                 cart.removeValue();
+
+                                Intent b = new Intent(confirm_details.this , MainActivity.class);
+                                startActivity(b);
                             }
                         }
 

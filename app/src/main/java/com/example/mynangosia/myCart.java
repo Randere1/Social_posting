@@ -3,6 +3,7 @@ package com.example.mynangosia;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +14,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -40,7 +43,8 @@ public class myCart extends AppCompatActivity {
     private FirebaseAuth mAuth, eAuth;
     private DatabaseReference Reff, friendReff;
     String currentUserId;
-    private DatabaseReference users, Alcohols, cart,orders;
+    private DatabaseReference users, Alcohols, cart, orders;
+    Toolbar mToolbar;
 
 
     @Override
@@ -58,24 +62,29 @@ public class myCart extends AppCompatActivity {
         buy = findViewById(R.id.proceed_to_buy);
 
         cartAd adapter2 = new cartAd();
-       recyclerView1 = findViewById(R.id.Posts);
-      recyclerView1.setHasFixedSize(true);
-      LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
+        recyclerView1 = findViewById(R.id.Posts);
+        recyclerView1.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(this);
         linearLayoutManager2.setReverseLayout(true);
-       linearLayoutManager2.setStackFromEnd(true);
-       recyclerView1.setLayoutManager(linearLayoutManager2);
-       recyclerView1.setAdapter(adapter2);
+        linearLayoutManager2.setStackFromEnd(true);
+        recyclerView1.setLayoutManager(linearLayoutManager2);
+        recyclerView1.setAdapter(adapter2);
 
+        mToolbar = findViewById(R.id.main_page_bar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String s = totalPrices.getText().toString();
-                Intent intent = new Intent(myCart.this , confirm_details.class);
+                Intent intent = new Intent(myCart.this, confirm_details.class);
                 intent.putExtra("Total", s);
                 startActivity(intent);
-                         }
+            }
         });
 
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
@@ -84,23 +93,41 @@ public class myCart extends AppCompatActivity {
     }
 
 
-
     public BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             // Get extra data included in the Intent
             String Total = intent.getStringExtra("Total");
             totalPrices.setText(Total);
-            Toast.makeText(myCart.this,"Total" ,Toast.LENGTH_SHORT).show();
+            String u = totalPrices.getText().toString();
+            if (TextUtils.isEmpty(u)) {
+                Toast.makeText(myCart.this, "your cart is empty...", Toast.LENGTH_SHORT).show();
+                Intent a = new Intent(myCart.this, MainActivity.class);
+                startActivity(a);
+            }
         }
     };
-
-
 
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            SendUserToMain();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void SendUserToMain() {
+        Intent e = new Intent(myCart.this, MainActivity.class);
+        startActivity(e);
+
+
     }
 }

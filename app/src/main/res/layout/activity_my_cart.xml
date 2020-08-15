@@ -34,18 +34,17 @@
                 android:textSize="20sp"/>
 
             <TextView
-                android:layout_marginStart="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:text="Ksh: "
                 android:textColor="@color/Black"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/total_product_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/quantity_null"
                 android:textColor="@color/Black"
                 android:textSize="20sp"/>
 

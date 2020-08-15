@@ -105,7 +105,6 @@ public class login extends AppCompatActivity {
                                 isEmailVerified();
                                 //  SendUserToMainActivity();
 
-                                Toast.makeText(login.this, "login succsful",Toast.LENGTH_SHORT).show();
                                 progress.dismiss();
                             }
                             else{
