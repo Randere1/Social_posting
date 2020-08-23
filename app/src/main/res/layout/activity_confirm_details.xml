@@ -142,20 +142,39 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/pick_up"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/inputs"
-            android:ems="10"
-            android:hint="Siaya"
-            android:padding="10dp"
-            android:textSize="14sp"
-            android:textStyle="bold"></TextView>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/pick_up"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:enabled="false"
+                android:background="@drawable/inputs"
+                android:ems="10"
+                android:hint="Siaya"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"></TextView>
+
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="39dp"
+                android:layout_marginTop="0dp"
+                android:padding="10dp"></androidx.appcompat.widget.AppCompatSpinner>
+
+
+        </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/loation"
@@ -172,6 +191,8 @@
             android:padding="10dp"
             android:textSize="14sp"
             android:textStyle="bold"></TextView>
+
+
 
         <Button
             android:id="@+id/searchlocation"

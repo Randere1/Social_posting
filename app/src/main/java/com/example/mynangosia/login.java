@@ -135,7 +135,7 @@ public class login extends AppCompatActivity {
     }
 
     private void SendUserToMainActivity() {
-        Intent manIntent=new Intent(login.this,MainActivity.class);
+        Intent manIntent=new Intent(login.this,flash.class);
 
         startActivity(manIntent);
         finish();

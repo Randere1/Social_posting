@@ -77,16 +77,15 @@ public class Order_itemAd extends RecyclerView.Adapter<Order_itemAd.requestVh> {
     }
 
     public class requestVh extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView a, b, c;
-        ImageView g;
-        TextView h;
 
+        TextView h,a, b, c;
+        ImageView g;
         public requestVh(@NonNull View itemView) {
             super(itemView);
-            a = itemView.findViewById(R.id.description);
-            c = itemView.findViewById(R.id.price);
+            a = (TextView) itemView.findViewById(R.id.description);
+            c = (TextView)itemView.findViewById(R.id.price);
             g = itemView.findViewById(R.id.image);
-            h = itemView.findViewById(R.id.quantity);
+            h =(TextView) itemView.findViewById(R.id.quantity);
 
             itemView.setOnClickListener(this);
 
@@ -98,11 +97,7 @@ public class Order_itemAd extends RecyclerView.Adapter<Order_itemAd.requestVh> {
         @Override
         public void onClick(View v) {
 
-            int position = getAdapterPosition();
-            cartGs adminalcoholClick = mrequestGs.get(position);
-            Intent intent = new Intent(v.getContext(), Order_items.class);
-            intent.putExtra("Clickable", adminalcoholClick);
-            v.getContext().startActivity(intent);
+
 
         }
     }

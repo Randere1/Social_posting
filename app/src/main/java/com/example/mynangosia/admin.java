@@ -37,7 +37,9 @@ public class admin extends AppCompatActivity implements f1.OnFragmentInteraction
     private RecyclerView picpostRecycler;
     private Button d,e,f;
     SearchView a,b,c;
-    AlcoholAd discpostAd;
+    AlcoholAd AlcoholAd;
+    roomAD roomAD;
+    productAD productAD;
     ArrayList<alcoholGs> discposts;
 
     @Override
@@ -125,6 +127,44 @@ public class admin extends AppCompatActivity implements f1.OnFragmentInteraction
             }
         });
 
+        a.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+        b.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+
+        c.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+
         d.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +178,14 @@ public class admin extends AppCompatActivity implements f1.OnFragmentInteraction
             @Override
             public void onClick(View v) {
                 Intent h = new Intent(admin.this, roomPost.class);
+                startActivity(h);
+            }
+        });
+
+        f.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent h = new Intent(admin.this, productPost.class);
                 startActivity(h);
             }
         });
@@ -163,12 +211,7 @@ public class admin extends AppCompatActivity implements f1.OnFragmentInteraction
 
         switch (item.getItemId()) {
 
-            case  R.id.block_menu:
 
-                Intent a = new Intent(admin.this,register.class);
-                startActivity(a);
-
-                break;
 
             case  R.id.log_menu:
 

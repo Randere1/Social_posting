@@ -179,6 +179,7 @@ public class register extends AppCompatActivity {
                         userMap.put("username", Usernam);
                         userMap.put("FullName", Names);
                         userMap.put("Admin", "user");
+                        userMap.put("Profile Image","https://firebasestorage.googleapis.com/v0/b/utenzi-services-nangosia.appspot.com/o/Alcohol%20post%20pic%2Fda4beaae-0fe0-40d2-8d87-f7cfa2a6f42020-August-202017%3A14.jpg?alt=media&token=4fa82091-d393-4427-bdc5-a5fb708f0408");
                         userMap.put("uid", user.getUid());
                         users.child(user.getUid()).updateChildren(userMap);
 

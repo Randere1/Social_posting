@@ -3,19 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <item android:id="@+id/block_menu"
-        android:title="Search"
+
+
+
+
+
+    <item android:id="@+id/drink_menu"
+        android:title="orders"
         app:showAsAction="never">
     </item>
-
-    <item android:id="@+id/drink_menu"
-        android:title="Orders"
-        app:showAsAction="never">
-    </item>
-
-
-
-
 
 
 

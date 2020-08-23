@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Nangosia</string>
+    <string name="app_name">Uservices</string>
 
     <string name="open">Drawer open </string>
     <string name="close">Drawer close </string>
@@ -8,6 +8,9 @@
     <string name="medium">medium</string>
     <string name="strong">strong</string>
     <string name="very_strong">very_strong</string>
+    <string name="whatsapp">
+    <a href="https://chat.whatsapp.com/IIGu0Ff2Ao22b7p3GaH52X">Click here</a>
+    </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

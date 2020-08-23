@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5f5dc"
+    tools:context=".flash">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation ="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:text="Welocome to "
+            android:textSize="40dp"
+            android:textStyle="bold"
+            app:fontFamily="casual"></TextView>
+
+
+
+    <ImageView
+        android:id="@+id/post_image"
+       android:background ="@drawable/nav"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_margin="3dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:text="UTENZI SERVICES "
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/eagle_lak"></TextView>
+    </LinearLayout>
+
+</RelativeLayout>

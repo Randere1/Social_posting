@@ -6,9 +6,16 @@
     tools:context=".f3">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Posts"
         android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="75dp"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+
+
+
+        />
 
 </FrameLayout>

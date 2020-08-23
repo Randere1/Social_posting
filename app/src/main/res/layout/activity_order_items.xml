@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Order_items">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_page_bar"
         android:layout_width="match_parent"
@@ -16,13 +17,23 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Posts"
         android:layout_width="match_parent"
+        android:layout_height="650dp"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="60dp"
-        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp" />
 
+    <Button
+        android:id="@+id/biz_Post_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="650dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/btn"
+        android:text="Delivered" />
 
-
-        />
 
 
 </RelativeLayout>

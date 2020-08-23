@@ -16,9 +16,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
@@ -39,8 +42,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class confirm_details extends AppCompatActivity implements AuthListener, MpesaListener {
@@ -59,7 +64,7 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
     String currentUserId;
     Toolbar mToolbar;
     private FirebaseAuth mAuth, eAuth;
-    TextView name ,savedNo,items,price,location,obtained;
+    TextView name ,savedNo,items,price,location,obtained,pick;
     EditText paymentNo,payer;
     Button proceed;
     private String saveCurrentDate,SaveCurrentTime;
@@ -67,6 +72,8 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
     String  phone,s,lat,lon;
     ProgressDialog dialog;
     String uniqueId = UUID.randomUUID().toString();
+    Spinner spinner;
+    String itemValue,loc;
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
@@ -75,6 +82,7 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_details);
+
 
 
 
@@ -88,6 +96,7 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
          s = (String) b.get("Total");
          lat = (String) b.get("Latitude");
          lon = (String) b.get("Longitude");
+         loc = (String) b.get("Location");
 
 
 
@@ -98,12 +107,49 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
         name= findViewById(R.id.name);
         savedNo = findViewById(R.id.number);
         items = findViewById(R.id.count);
+        spinner= findViewById(R.id.spinner);
         price = findViewById(R.id.price);
         location = findViewById(R.id.searchlocation);
         paymentNo = findViewById(R.id.payt);
         payer = findViewById(R.id.payn);
         proceed = findViewById(R.id.pay);
         obtained = findViewById(R.id.loation);
+        pick = findViewById(R.id.pick_up);
+
+     //   getloc();
+
+        pick.setText(loc);
+
+        List <String> list =new ArrayList<>();
+        list.add("Funyula");
+        list.add("Wakhungu");
+        list.add("Nambuku");
+        list.add("Kangara");
+        list.add("Bukiri");
+        list.add("Bumala");
+        list.add("Odiado");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item , list);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                 itemValue = parent.getItemAtPosition(position).toString();
+                pick.setText(itemValue);
+              //  location.performClick();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
         Mpesa.with(this, CONSUMER_KEY, CONSUMER_SECRET);
         dialog = new ProgressDialog(this);
@@ -141,6 +187,7 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
                                 items.setText(String.valueOf(y));
 
 
+
                             }
 
                         }
@@ -167,6 +214,7 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
 
                 Intent intent = new Intent(confirm_details.this , MapsActivity.class);
                 intent.putExtra("Total", s);
+              //  intent.putExtra("Location", itemValue);
                 startActivity(intent);
 
             //    startActivity(new Intent(confirm_details.this, MapsActivity.class));
@@ -204,14 +252,14 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
                         if (which == 0){
                          //   startActivity(new Intent(confirm_details.this, MpesaActivity.class));
                             //   switchdata();
-                            //Toast.makeText(confirm_details.this, "mpesa selected", Toast.LENGTH_SHORT).show();
-                            String p = paymentNo.getText().toString();
-                            int a = Integer.valueOf(price.getText().toString());
-                            if (p.isEmpty()){
-                                paymentNo.setError("Enter phone.");
-                                return;
-                            }
-                            pay(p, a);
+                            Toast.makeText(confirm_details.this, "currently unavailable", Toast.LENGTH_SHORT).show();
+                           // String p = paymentNo.getText().toString();
+                          //  int a = Integer.valueOf(price.getText().toString());
+                          //  if (p.isEmpty()){
+                         //       paymentNo.setError("Enter phone.");
+                         //       return;
+                         //   }
+                         //   pay(p, a);
 
                         }
                         if (which == 1){
@@ -257,6 +305,11 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
             }
         });
 
+    }
+
+    private void getloc() {
+
+        location.performClick();
     }
 
     private void showDialog(String title, String message, int code) {
@@ -380,9 +433,9 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
                                 orders.child(cartCodeKey).child("productName").setValue(productName);
                                 orders.child(cartCodeKey).child("pk").setValue(pk);
                                 orders.child(cartCodeKey).child("Value").setValue(Value);
-                                orders.child(cartCodeKey).child(" Pic").setValue( Pic);
+                                orders.child(cartCodeKey).child("Pic").setValue( Pic);
                                 orders.child(cartCodeKey).child("quantity").setValue(quantity);
-                                orders.child(cartCodeKey).child(" total").setValue( total);
+                                orders.child(cartCodeKey).child("total").setValue( total);
                                 orders.child(cartCodeKey).child("description").setValue(description);
 
                                 cart.removeValue();
@@ -407,6 +460,12 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
             }
         });
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
     }
 

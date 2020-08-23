@@ -2,22 +2,28 @@ package com.example.mynangosia;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +33,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -43,8 +52,14 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     private ActionBarDrawerToggle mToggle;
     private CircleImageView shoppingCart;
     private TextView navprofilename, navid,count;
+    CircleImageView navProfileImage;
     int y;
     String itemnum = "0";
+
+    private FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+    private HashMap<String, Object> firebaseDefaultMap;
+    public static final String VERSION_CODE_KEY = "latest_app_version";
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +93,44 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
         mToggle.syncState();
         navigationView.bringToFront();
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
         navigationView.setBackgroundColor(getResources().getColor(R.color.colorNavigation));
+       // navigationView.setBackground(getDrawable(R.drawable.nav));
+
+        //This is default Map
+        //Setting the Default Map Value with the current version code
+        firebaseDefaultMap = new HashMap<>();
+        firebaseDefaultMap.put(VERSION_CODE_KEY, getCurrentVersionCode());
+        mFirebaseRemoteConfig.setDefaults(firebaseDefaultMap);
+
+        //Setting that default Map to Firebase Remote Config
+
+        //Setting Developer Mode enabled to fast retrieve the values
+        mFirebaseRemoteConfig.setConfigSettings(
+                new FirebaseRemoteConfigSettings.Builder().setDeveloperModeEnabled(BuildConfig.DEBUG)
+                        .build());
+
+        //Fetching the values here
+        mFirebaseRemoteConfig.fetch().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    mFirebaseRemoteConfig.activateFetched();
+                    Log.d(TAG, "Fetched value: " + mFirebaseRemoteConfig.getString(VERSION_CODE_KEY));
+                    //calling function to check if new version is available or not
+                    checkForUpdate();
+                } else {
+                    Toast.makeText(MainActivity.this, "Something went wrong please try again",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        Log.d(TAG, "Default value: " + mFirebaseRemoteConfig.getString(VERSION_CODE_KEY));
+
+
+
+
 
         shoppingCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +150,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
         navprofilename = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_user);
         navid = (TextView) navigationView.getHeaderView(0).findViewById(R.id.nav_phone);
+       navProfileImage =  navigationView.getHeaderView(0).findViewById(R.id.nav_dp);
 
 
         users.addValueEventListener(new ValueEventListener() {
@@ -106,7 +159,9 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
                if (dataSnapshot.exists()){
                     String b = dataSnapshot.child("FullName").getValue().toString();
                    String c = dataSnapshot.child("username").getValue().toString();
+                   String  Image = dataSnapshot.child("Profile Image").getValue().toString();
 
+                   Picasso.get().load(Image).placeholder(R.drawable.profile).into(navProfileImage);
                    navprofilename.setText(b);
                    navid.setText(c);
                }
@@ -285,6 +340,12 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
                 break;
 
+            case R.id.nav_about:
+                Intent about = new Intent(MainActivity.this, Aboutapp.class);
+                startActivity(about);
+
+                break;
+
             case R.id.nav_Acc:
                 Intent ui = new Intent(MainActivity.this, profile.class);
                 startActivity(ui);
@@ -309,4 +370,39 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    private void checkForUpdate() {
+        int latestAppVersion = (int) mFirebaseRemoteConfig.getDouble(VERSION_CODE_KEY);
+        if (latestAppVersion > getCurrentVersionCode()) {
+            new AlertDialog.Builder(this).setTitle("Please Update the App")
+                    .setMessage("A new version of this app is available. Please update it").setPositiveButton(
+                    "OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            Intent a = new Intent(MainActivity.this ,Aboutapp.class);
+                            startActivity(a);
+
+                        }
+                    }).setCancelable(false).show();
+        } else {
+            Toast.makeText(this,"This app is already up to date", Toast.LENGTH_SHORT);
+        }
+    }
+
+    private int getCurrentVersionCode() {
+        try {
+            return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+       // startActivity(new Intent(MainActivity.this , profile.class));
+        finishAffinity();
+          }
 }

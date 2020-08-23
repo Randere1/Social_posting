@@ -59,14 +59,6 @@ public class AlcoholAd extends RecyclerView.Adapter<AlcoholAd.MyViewHolder> impl
         Picasso.get().load(post.getPic()).fit().into(holder.postimage);
 
 
-        if (post.getDescription() != null) {
-            holder.description.setVisibility(View.VISIBLE);
-
-        } else {
-            holder.description.setVisibility(View.GONE);
-        }
-
-
     }
 
     @Override

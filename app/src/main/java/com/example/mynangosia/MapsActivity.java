@@ -60,7 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationManager locationManager;
     private LatLng latLng;
     private boolean ispermission;
-    String lat,lon,s;
+    String lat,lon,s,loc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Bundle b = intent.getExtras();
             assert  b != null;
             s = (String) b.get("Total");
+          //  loc = (String) b.get("Location");
 
             checkLocation();
         }
@@ -177,6 +178,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             intent.putExtra("Total", s);
             intent.putExtra("Latitude", lat);
             intent.putExtra("Longitude", lon);
+          //  intent.putExtra("Location", loc);
             startActivity(intent);
 
         }

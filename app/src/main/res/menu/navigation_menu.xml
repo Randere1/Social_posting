@@ -2,32 +2,44 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-
-
-
-
     <item
         android:id="@+id/nav_Acc"
+        android:icon="@drawable/mprofile"
         android:title="My Profile" />
 
 
-        <item
-            android:id="@+id/nav_Admin"
-            android:title="Admin"
+    <item
+        android:id="@+id/nav_Admin"
+        android:icon="@drawable/admin"
+        android:title="Admin"
 
-            />
+        />
 
-     <item
-            android:id="@+id/nav_Contact"
-            android:title="Contact Us"
+    <item
+        android:id="@+id/nav_Contact"
+        android:icon="@drawable/contact"
+        android:title="Contact Us"
 
-           />
+        />
+    <item
+        android:id="@+id/nav_about"
+        android:icon="@drawable/aboutus"
+        android:title="About app"
+
+        />
 
     <item
         android:id="@+id/nav_log"
         android:title="Log Out"
+        android:icon="@drawable/logout"
 
         />
+
+
+
+
+
+
 
 
 </menu>

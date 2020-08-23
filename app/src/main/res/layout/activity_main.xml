@@ -5,12 +5,14 @@
     android:id="@+id/main_drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e6e6fa"
     tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/main_page_bar"
@@ -19,30 +21,7 @@
             android:background="#f5d9d5"
             android:fitsSystemWindows="true">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:gravity="end"
-                android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/cart"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:src="@drawable/cart"
-                app:civ_border_width="2dp" />
-
-                <TextView
-                    android:id="@+id/item_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@android:color/black" />
-
-            </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -78,6 +57,38 @@
         android:layout_marginBottom="3dp"
         app:headerLayout="@layout/navigation_header"
         app:menu="@menu/navigation_menu" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/cart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:src="@drawable/cart"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/item_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>
 

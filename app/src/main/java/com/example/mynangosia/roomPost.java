@@ -156,8 +156,8 @@ public class roomPost extends AppCompatActivity {
             HashMap picpostmap = new HashMap();
             picpostmap.put("date", saveCurrentDate);
             picpostmap.put("time",SaveCurrentTime);
-            picpostmap.put("productName", pname);
-            picpostmap.put("Pic", "https://firebasestorage.googleapis.com/v0/b/post-32466.appspot.com/o/Profile%20Images%2FiZbhgkZQJfhaPZn9guneOsv9Jw62.jpg?alt=media&token=dc24a261-3e2e-42b9-925e-bd5581c7f02b");
+            picpostmap.put("productName","Room"+pname);
+            picpostmap.put("Pic","https://firebasestorage.googleapis.com/v0/b/utenzi-services-nangosia.appspot.com/o/Alcohol%20post%20pic%2Fda4beaae-0fe0-40d2-8d87-f7cfa2a6f42020-August-202017%3A14.jpg?alt=media&token=4fa82091-d393-4427-bdc5-a5fb708f0408");
             picpostmap.put("pk",uniqueId);
             picpostmap.put("value", price);
 

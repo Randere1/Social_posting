@@ -1,6 +1,7 @@
 package com.example.mynangosia;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class roomAD  extends RecyclerView.Adapter<roomAD .MyViewHolder> implemen
     public roomAD .MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View itemView = LayoutInflater.from(context)
-                .inflate(R.layout.biz_layout, parent, false);
+                .inflate(R.layout.room_layout, parent, false);
 
         return new roomAD .MyViewHolder(itemView);
     }
@@ -122,13 +123,18 @@ public class roomAD  extends RecyclerView.Adapter<roomAD .MyViewHolder> implemen
             price = itemView.findViewById(R.id.biz_price);
             postimage=(ImageView)itemView.findViewById(R.id.biz_image);
 
+
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
 
-
+            int position = getAdapterPosition();
+            roomsGS AlcoholClick = discposts.get(position);
+            Intent intent = new Intent(v.getContext(), roomClick.class);
+            intent.putExtra("Clickable", AlcoholClick);
+            v.getContext().startActivity(intent);
 
         }
     }
