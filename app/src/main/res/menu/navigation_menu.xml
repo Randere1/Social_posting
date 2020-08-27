@@ -7,6 +7,10 @@
         android:icon="@drawable/mprofile"
         android:title="My Profile" />
 
+    <item
+        android:id="@+id/nav_orders"
+        android:title="My Orders" />
+
 
     <item
         android:id="@+id/nav_Admin"

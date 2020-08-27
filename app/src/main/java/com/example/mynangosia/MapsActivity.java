@@ -300,4 +300,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return address;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, confirm_details.class));
+    }
 }

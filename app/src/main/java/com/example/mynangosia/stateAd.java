@@ -4,10 +4,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class fAdapter extends FragmentStatePagerAdapter {
+class stateAd  extends FragmentStatePagerAdapter {
     int mNoOfTabs;
 
-    public fAdapter(FragmentManager fm, int NumberOfTabs)
+    public stateAd(FragmentManager fm, int NumberOfTabs)
     {
         super(fm);
         this.mNoOfTabs = NumberOfTabs;
@@ -20,17 +20,11 @@ public class fAdapter extends FragmentStatePagerAdapter {
         {
 
             case 0:
-                f1 tab1 = new f1();
+              s1 tab1 = new s1();
                 return tab1;
             case 1:
-                f2 tab2 = new f2();
+                s2 tab2 = new  s2();
                 return  tab2;
-            case 2:
-                f3 tab3 = new f3();
-                return  tab3;
-            case 3:
-                f4 tab4 = new f4();
-                return  tab4;
             default:
                 return null;
         }

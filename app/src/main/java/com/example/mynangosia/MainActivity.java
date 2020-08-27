@@ -305,7 +305,7 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
 
             case R.id.nav_log:
                 mAuth.signOut();
-                DirectUserToLoginActivity();
+                startActivity(new Intent(this , login.class));
                 break;
 
             case R.id.nav_Admin:
@@ -337,6 +337,11 @@ public class MainActivity extends AppCompatActivity  implements  NavigationView.
             case R.id.nav_Contact:
                 Intent u = new Intent(MainActivity.this, contact.class);
                 startActivity(u);
+
+                break;
+            case R.id.nav_orders:
+                Intent uvu = new Intent(MainActivity.this, Myorders.class);
+                startActivity(uvu);
 
                 break;
 

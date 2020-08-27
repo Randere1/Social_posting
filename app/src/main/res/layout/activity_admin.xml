@@ -10,46 +10,37 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/msg_bar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="55dp"
         android:fitsSystemWindows="true"
         android:background="#f5d9d5">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="UTENZI "
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/eagle_lak"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:text="SERVICES "
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/eagle_lak"></TextView>
+
+        </LinearLayout>
 
 
-
-        <androidx.appcompat.widget.SearchView
-            android:layout_marginTop="5dp"
-            android:id="@+id/search"
-            android:layout_width="wrap_content"
-            android:padding="10dp"
-            android:visibility="visible"
-            android:layout_marginBottom="15dp"
-            android:layout_height="match_parent"
-            app:iconifiedByDefault="false"
-            app:queryHint="Alcohol here"/>
-
-        <androidx.appcompat.widget.SearchView
-            android:layout_marginTop="5dp"
-            android:id="@+id/search1"
-            android:layout_width="wrap_content"
-            android:padding="10dp"
-         android:visibility="gone"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="15dp"
-            android:layout_height="match_parent"
-            app:iconifiedByDefault="false"
-            app:queryHint="Search Room here"/>
-
-        <androidx.appcompat.widget.SearchView
-            android:layout_marginTop="5dp"
-            android:id="@+id/search2"
-            android:layout_width="wrap_content"
-            android:padding="10dp"
-            android:visibility="gone"
-            android:layout_marginStart="0dp"
-            android:layout_marginBottom="15dp"
-            android:layout_height="match_parent"
-            app:iconifiedByDefault="false"
-            app:queryHint="Search Product here"/>
 
     </androidx.appcompat.widget.Toolbar>
 

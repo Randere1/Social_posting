@@ -50,4 +50,10 @@ public class people_with_orders extends AppCompatActivity {
         startActivity(e);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this ,admin.class));
+    }
 }

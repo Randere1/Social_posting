@@ -40,6 +40,8 @@ public class user_with_orderAd extends RecyclerView.Adapter<user_with_orderAd.My
     private DatabaseReference Reff, friendReff;
     String currentUserId,z;
     Toolbar mToolbar;
+    private DatabaseReference users;
+    String  full;
 
     public   user_with_orderAd() {
 
@@ -54,10 +56,16 @@ public class user_with_orderAd extends RecyclerView.Adapter<user_with_orderAd.My
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+                            String b ="Admin";
                      user_with_orderGs pp = dataSnapshot.getValue(user_with_orderGs.class);
                             pp.setPk(dataSnapshot.getKey());
+                           /* if (pp.getCurrentUserId().equals(mAuth.getUid()) ){
+                                discposts.add(pp);
+                                notifyDataSetChanged();
+                            }*/
                             discposts.add(pp);
                             notifyDataSetChanged();
+
                         }
 
                         @Override

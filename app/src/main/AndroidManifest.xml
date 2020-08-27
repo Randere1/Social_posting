@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".flash"></activity>
+        <activity android:name=".Myorders"></activity>
+        <activity android:name=".Order_items_deliveries" />
+        <activity android:name=".flash" />
         <activity android:name=".Aboutapp" />
         <activity android:name=".AdminproductClick" />
         <activity android:name=".AdminroomClick" />

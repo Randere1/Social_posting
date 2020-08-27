@@ -158,7 +158,7 @@ public class myCart extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+      startActivity(new Intent(this,MainActivity.class));
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -176,4 +176,5 @@ public class myCart extends AppCompatActivity {
 
 
     }
+
 }

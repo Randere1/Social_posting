@@ -30,17 +30,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class admin extends AppCompatActivity implements f1.OnFragmentInteractionListener,f2.OnFragmentInteractionListener,f3.OnFragmentInteractionListener  {
+public class admin extends AppCompatActivity implements f1.OnFragmentInteractionListener,f2.OnFragmentInteractionListener,f3.OnFragmentInteractionListener ,f4.OnFragmentInteractionListener {
 
     private FirebaseAuth mAuth;
     private Toolbar mToolbar;
     private RecyclerView picpostRecycler;
     private Button d,e,f;
-    SearchView a,b,c;
-    AlcoholAd AlcoholAd;
-    roomAD roomAD;
-    productAD productAD;
-    ArrayList<alcoholGs> discposts;
+  ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +47,7 @@ public class admin extends AppCompatActivity implements f1.OnFragmentInteraction
 
 
 
-            a =findViewById(R.id.search);
-            b =findViewById(R.id.search1);
-            c =findViewById(R.id.search2);
+
             d = findViewById(R.id.main_post);
             e = findViewById(R.id.main_post1);
             f = findViewById(R.id.main_post2);
@@ -69,6 +63,7 @@ public class admin extends AppCompatActivity implements f1.OnFragmentInteraction
         tabLayout.addTab(tabLayout.newTab().setText("ALCOHOLS"));
         tabLayout.addTab(tabLayout.newTab().setText("ROOMS"));
         tabLayout.addTab(tabLayout.newTab().setText("OTHER PRODUCTS"));
+        tabLayout.addTab(tabLayout.newTab().setText("DELIVERED"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
@@ -94,76 +89,8 @@ public class admin extends AppCompatActivity implements f1.OnFragmentInteraction
 
             }
         });
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
 
-            @Override
-            public void onPageSelected(int position) {
-        if (position == 0){
-            d.setVisibility(View.VISIBLE);
-            a.setVisibility(View.VISIBLE);
-
-        }if (position == 1){
-            e.setVisibility(View.VISIBLE);
-            b.setVisibility(View.VISIBLE);
-            d.setVisibility(View.GONE);
-            a.setVisibility(View.GONE);
-                }else if (position == 2){
-            f.setVisibility(View.VISIBLE);
-            c.setVisibility(View.VISIBLE);
-            e.setVisibility(View.GONE);
-            a.setVisibility(View.GONE);
-            b.setVisibility(View.GONE);
-            d.setVisibility(View.GONE);
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-        a.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                return false;
-            }
-        });
-        b.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                return false;
-            }
-        });
-
-        c.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-
-                return false;
-            }
-        });
 
         d.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,5 +184,9 @@ public class admin extends AppCompatActivity implements f1.OnFragmentInteraction
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this , MainActivity.class));
+    }
 }

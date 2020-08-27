@@ -5,34 +5,25 @@ import java.io.Serializable;
 public class user_with_orderGs implements Serializable {
 
     private  String date;
+    private  String odate;
     private String time;
+    private String otime;
+    private String state;
     private String amount;
-    private String transaction;
-    private String name;
-    private String pk;
-    private String phone;
-    private String payment_method;
-    private String Longitude;
-    private String Latitude;
 
-    public user_with_orderGs(String date, String time, String amount, String transaction, String name, String pk, String phone, String payment_method, String longitude, String latitude) {
-        this.setDate(date);
-        this.setTime(time);
-        this.setAmount(amount);
-        this.setTransaction(transaction);
-        this.setName(name);
-        this.setPk(pk);
-        this.setPhone(phone);
-        this.setPayment_method(payment_method);
-        setLongitude(longitude);
-        setLatitude(latitude);
+    public user_with_orderGs(String currentUserId) {
+        CurrentUserId = currentUserId;
     }
 
+    private String CurrentUserId;
 
-
-    public user_with_orderGs() {
+    public String getCurrentUserId() {
+        return CurrentUserId;
     }
 
+    public void setCurrentUserId(String currentUserId) {
+        CurrentUserId = currentUserId;
+    }
 
     public String getDate() {
         return date;
@@ -42,12 +33,36 @@ public class user_with_orderGs implements Serializable {
         this.date = date;
     }
 
+    public String getOdate() {
+        return odate;
+    }
+
+    public void setOdate(String odate) {
+        this.odate = odate;
+    }
+
     public String getTime() {
         return time;
     }
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getOtime() {
+        return otime;
+    }
+
+    public void setOtime(String otime) {
+        this.otime = otime;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getAmount() {
@@ -113,4 +128,37 @@ public class user_with_orderGs implements Serializable {
     public void setLatitude(String latitude) {
         Latitude = latitude;
     }
+
+    private String transaction;
+    private String name;
+    private String pk;
+    private String phone;
+    private String payment_method;
+    private String Longitude;
+    private String Latitude;
+
+    public user_with_orderGs(String date, String odate, String time, String otime, String state, String amount, String transaction, String name, String pk, String phone, String payment_method, String longitude, String latitude) {
+        this.date = date;
+        this.odate = odate;
+        this.time = time;
+        this.otime = otime;
+        this.state = state;
+        this.amount = amount;
+        this.transaction = transaction;
+        this.name = name;
+        this.pk = pk;
+        this.phone = phone;
+        this.payment_method = payment_method;
+        Longitude = longitude;
+        Latitude = latitude;
+    }
+
+
+
+    public user_with_orderGs() {
+    }
+
+
+
+
 }

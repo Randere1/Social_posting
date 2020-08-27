@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +41,7 @@ public class f3 extends Fragment {
     private RecyclerView picpostRecycler;
     AdproductAd discpostAd;
     ArrayList<alcoholGs> discposts;
+    SearchView searchView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -80,13 +83,36 @@ public class f3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_f3, container, false);
         Alcoholdisplay();
-        View view = inflater.inflate(R.layout.fragment_tab3, container, false);
 
         picpostRecycler = view.findViewById(R.id.Posts);
+       searchView = view.findViewById(R.id.search);
         picpostRecycler.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         picpostRecycler.setLayoutManager(gridLayoutManager);
+
+        assert  discpostAd != null;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                assert  discpostAd != null;
+                if (discpostAd ==null){
+                    Toast.makeText(getContext(), "oops", Toast.LENGTH_SHORT);
+                }else
+                {
+                    discpostAd.getFilter().filter(newText);
+                }
+
+                return false;
+            }
+        });
 
         return view;
     }

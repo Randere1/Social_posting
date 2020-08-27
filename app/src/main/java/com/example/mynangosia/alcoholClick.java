@@ -244,4 +244,10 @@ public class alcoholClick extends AppCompatActivity {
         Intent e = new Intent(alcoholClick.this, MainActivity.class);
         startActivity(e);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this , MainActivity.class));
+    }
 }

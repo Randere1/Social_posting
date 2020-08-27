@@ -74,6 +74,7 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
     String uniqueId = UUID.randomUUID().toString();
     Spinner spinner;
     String itemValue,loc;
+    DatabaseReference undelivered_order;
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
@@ -287,12 +288,15 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
                                 picpostmap.put("amount", g);
                                 picpostmap.put("name", full);
                                 picpostmap.put("pk", uniqueId);
+                                picpostmap.put("CurrentUserId", currentUserId);
                                 picpostmap.put("transaction", "");
                                 picpostmap.put("payment_method", "cash on delivery");
                                 picpostmap.put("phone", phone);
                                 picpostmap.put("Longitude", lon);
                                 picpostmap.put("Latitude", lat);
 
+                                undelivered_order = FirebaseDatabase.getInstance().getReference().child("Undelivered Orders").child(currentUserId);
+                                undelivered_order.child(uniqueId).updateChildren(picpostmap);
                                 people.child(uniqueId).updateChildren(picpostmap);
 
                                 switchOrder();
@@ -417,7 +421,7 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
                     String b = dataSnapshot.child("FullName").getValue().toString();
                     cart = FirebaseDatabase.getInstance().getReference().child("Carts").child(b);
                     orders = FirebaseDatabase.getInstance().getReference().child("People With Orders").child(uniqueId).child("Items");
-
+                   undelivered_order = FirebaseDatabase.getInstance().getReference().child("Undelivered Orders").child(currentUserId).child(uniqueId).child("Items");
                     cart.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -437,6 +441,13 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
                                 orders.child(cartCodeKey).child("quantity").setValue(quantity);
                                 orders.child(cartCodeKey).child("total").setValue( total);
                                 orders.child(cartCodeKey).child("description").setValue(description);
+                                undelivered_order.child(cartCodeKey).child("productName").setValue(productName);
+                                undelivered_order.child(cartCodeKey).child("pk").setValue(pk);
+                                undelivered_order.child(cartCodeKey).child("Value").setValue(Value);
+                                undelivered_order.child(cartCodeKey).child("Pic").setValue( Pic);
+                                undelivered_order.child(cartCodeKey).child("quantity").setValue(quantity);
+                                undelivered_order.child(cartCodeKey).child("total").setValue( total);
+                                undelivered_order.child(cartCodeKey).child("description").setValue(description);
 
                                 cart.removeValue();
 
@@ -496,6 +507,12 @@ public class confirm_details extends AppCompatActivity implements AuthListener, 
         Intent e=new Intent(confirm_details.this,myCart.class);
         startActivity(e);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this , myCart.class));
     }
 }
 
